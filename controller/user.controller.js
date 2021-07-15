@@ -1,6 +1,6 @@
 module.exports = {
     getUsers: async (req, res) => {
-        const response = await fetch("/api/users", {
+        const response = await fetch('https://dev.api.cloud.picupmedia.com/docs#/User/get_api_users_me', {
             method: "GET"
         });
 
