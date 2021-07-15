@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use('/api/users', userRouter);
+app.use('/api', userRouter);
 
 app.listen(constants.PORT, () => {
     console.log('app listen 8000');
