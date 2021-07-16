@@ -2,25 +2,9 @@ const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
+const { constants: { PORT }, swaggerOptions } = require('./constants');
 const { userRouter } = require('./routes');
-const { constants: { PORT } } = require('./constants');
 
-const swaggerOptions = {
-    swaggerDefinition: {
-        info: {
-            title: 'API users',
-            description: 'API Information',
-            version: '1.0.0'
-        },
-
-        servers: [{
-            url: 'http://localhost:8000',
-            description: 'Local'
-        }]
-    },
-
-    apis: ['./routes/*.js']
-}
 
 const app = express();
 
