@@ -1,6 +1,5 @@
 const express = require('express');
 
-const {userRouter} = require('./router');
 const {constants} = require('./constants');
 
 const app = express();
