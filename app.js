@@ -11,8 +11,8 @@ app.use(express.urlencoded({extended: true}));
 //     res.json('Welcome');
 // })
 
-app.get('/', (req, res) => {
-    res.json('Welcome');
+app.get('/user', (req, res) => {
+    res.json('Welcome user');
 })
 
 app.listen(process.env.PORT || constants.PORT, () => {
