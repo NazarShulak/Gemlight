@@ -1,6 +1,15 @@
 const router = require('express').Router();
-const { userController: { getUser } } = require('../controllers');
+const { userController: { getUsers } } = require('../controllers');
 
-router.get('/api/users/me', getUser);
+/**
+ * @swagger
+ * /api/users:
+ *     get:
+ *         description: Get all users
+ *         responses:
+ *             200:
+ *                 description: Success
+*/
+router.get('/api/users', getUsers);
 
 module.exports = router;
