@@ -25,4 +25,7 @@ module.exports = sequelize.define('User', {
         type: Sequelize.STRING,
         allowNull: false
     }
-}, { tableName: 'userInfo' });
+}, {
+    tableName: 'userInfo',
+    timestamps: false
+});
