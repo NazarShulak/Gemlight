@@ -1,11 +1,10 @@
+require('dotenv').config();
 const express = require('express');
-const mysql = require('mysql2');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-require('dotenv').config();
 
-
-const { constants: { PORT }, swaggerOptions } = require('./constants');
+require('./database');
+const { constants: { PORT, DB_CONNECTION_STRING, DB_PASSWORD }, swaggerOptions } = require('./constants');
 const { userRouter, authRouter } = require('./routes');
 
 const app = express();
@@ -16,27 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use('/', userRouter);
+app.use('/api', userRouter);
 app.use('/auth', authRouter);
-
-
-const connection = mysql.createConnection({
-    port: 3306,
-    host: process.env.DB_CONNECTION_STRING,
-    user: 'admin',
-    password: process.env.DB_PASSWORD,
-    database: 'users'
-});
-
 
 app.listen(PORT, () => {
     console.log(`app listen on ${PORT}`);
 
-    connection.connect(err => {
-        if (err) return console.log(err);
-        console.log('connection is successfully established');
-    });
-
 });
-
-module.exports.connection = connection;

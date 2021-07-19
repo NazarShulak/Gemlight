@@ -6,7 +6,7 @@ module.exports = {
         try {
             const result = await connection.query('SELECT * FROM userInfo');
 
-            res.json(result);
+            res.json(result[0]);
         } catch (e) {
             next(e);
         }
@@ -15,7 +15,7 @@ module.exports = {
     createUsers: async (req, res, next) => {
         try {
             const { name, age, email } = req.body;
-            const result = await connection.query('INSERT INTO userInfo(name,age,email) VALUES ', { name, age, email });
+            const result = await connection.query('INSERT INTO userInfo SET ?', { name, age, email });
 
             res.json(result, 'created ');
         } catch (e) {

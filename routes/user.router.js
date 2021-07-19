@@ -10,7 +10,7 @@ const { userController: { getUsers, createUsers } } = require('../controllers');
  *             200:
  *                 description: Success
  */
-router.get('/api/users', getUsers);
+router.get('/users', getUsers);
 
 /**
  * @swagger
