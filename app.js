@@ -20,9 +20,9 @@ app.use('/auth', authRouter);
 
 const connection = mysql.createConnection({
     port: 3306,
-    host: 'api-database.cvhms5uyrffc.us-east-2.rds.amazonaws.com',
+    host: process.env.DB_CONNECTION_STRING,
     user: 'admin',
-    password: 'superadmin',
+    password: process.env.DB_PASSWORD,
     database: 'users'
 });
 
