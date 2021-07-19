@@ -9,5 +9,13 @@ module.exports = {
         } catch (e) {
             next(e);
         }
+    },
+
+    createUsers: (req, res, next) => {
+        try {
+            res.json('created');
+        } catch (e) {
+            next(e);
+        }
     }
-}
+};

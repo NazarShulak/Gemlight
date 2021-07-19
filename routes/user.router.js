@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { userController: { getUsers } } = require('../controllers');
+const { userController: { getUsers, createUsers } } = require('../controllers');
 
 /**
  * @swagger
@@ -9,7 +9,8 @@ const { userController: { getUsers } } = require('../controllers');
  *         responses:
  *             200:
  *                 description: Success
-*/
+ */
 router.get('/api/users', getUsers);
+router.post('/api/users', createUsers);
 
 module.exports = router;

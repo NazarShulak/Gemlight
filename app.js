@@ -3,7 +3,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const { constants: { PORT }, swaggerOptions } = require('./constants');
-const { userRouter } = require('./routes');
+const { userRouter, authRouter } = require('./routes');
 
 
 const app = express();
@@ -15,6 +15,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/', userRouter);
+app.use('/auth', authRouter);
 
 app.listen(PORT, () => {
     console.log(`app listen on ${PORT}`);
