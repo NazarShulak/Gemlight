@@ -12,7 +12,15 @@ const { userController: { getUsers, createUsers } } = require('../controllers');
  */
 router.get('/api/users', getUsers);
 
-
+/**
+ * @swagger
+ * /api/users:
+ *     post:
+ *         description: Post new user
+ *         responses:
+ *             200:
+ *                 description: Success
+ */
 router.post('/api/users', createUsers);
 
 module.exports = router;
