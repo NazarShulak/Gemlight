@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+require('dotenv').config();
+
 
 const { constants: { PORT }, swaggerOptions } = require('./constants');
 const { userRouter, authRouter } = require('./routes');
