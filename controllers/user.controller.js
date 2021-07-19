@@ -12,13 +12,14 @@ module.exports = {
     },
 
     createUsers: async (req, res, next) => {
+        console.log('**********************');
         try {
-            const { name, age, email } = req.body;
-            const result = await connectionPool.query('INSERT INTO userInfo SET ?', { name, age, email });
-
-            res.json(result, 'created ');
+            const { name, age, email, password } = req.body;
+            const result = await connectionPool.insert(null, 'userInfo', { name, age, email, password });
+            console.log(result);
         } catch (e) {
             next(e);
         }
+        res.json('created ');
     }
 };

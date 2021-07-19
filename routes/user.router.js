@@ -21,6 +21,6 @@ router.get('/users', getUsers);
  *             200:
  *                 description: Success
  */
-router.post('/api/users', createUsers);
+router.post('/users', createUsers);
 
 module.exports = router;
