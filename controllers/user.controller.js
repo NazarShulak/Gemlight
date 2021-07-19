@@ -1,19 +1,23 @@
 const fetch = require('node-fetch');
+const { connection } = require('../app');
 
 module.exports = {
     getUsers: async (req, res, next) => {
         try {
-            await fetch('https://jsonplaceholder.typicode.com/users')
-                .then(res => res.json())
-                .then(json => res.json(json));
+            const result = await connection.query('SELECT * FROM userInfo');
+
+            res.json(result);
         } catch (e) {
             next(e);
         }
     },
 
-    createUsers: (req, res, next) => {
+    createUsers: async (req, res, next) => {
         try {
-            res.json('created');
+            const { name, age, email } = req.body;
+            const result = await connection.query('INSERT INTO userInfo SET ?', { name, age, email });
+
+            res.json(result, 'created ');
         } catch (e) {
             next(e);
         }

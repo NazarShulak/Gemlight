@@ -11,6 +11,8 @@ const { userController: { getUsers, createUsers } } = require('../controllers');
  *                 description: Success
  */
 router.get('/api/users', getUsers);
+
+
 router.post('/api/users', createUsers);
 
 module.exports = router;
