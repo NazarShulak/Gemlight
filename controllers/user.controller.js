@@ -1,11 +1,11 @@
-const { connectionPool } = require('../database');
+const { UserModel } = require('../database');
 
 module.exports = {
     getUsers: async (req, res, next) => {
         try {
-            const result = await connectionPool.query('SELECT * FROM userInfo');
+            const result = await UserModel.findAll({});
 
-            res.json(result[0]);
+            res.json(result);
         } catch (e) {
             next(e);
         }
@@ -15,7 +15,7 @@ module.exports = {
         console.log('**********************');
         try {
             const { name, age, email, password } = req.body;
-            const result = await connectionPool.insert(null, 'userInfo', { name, age, email, password });
+            const result = await UserModel.create({ name, age, email, password });
             console.log(result);
         } catch (e) {
             next(e);

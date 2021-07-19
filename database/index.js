@@ -1,1 +1,1 @@
-module.exports.connectionPool = require('./db');
+module.exports.UserModel = require('./models/User.model');

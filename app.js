@@ -1,7 +1,9 @@
-require('dotenv').config();
 const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+
+require('./database/connection');
+require('dotenv').config();
 
 const { constants: { PORT }, swaggerOptions } = require('./constants');
 const { userRouter, authRouter } = require('./routes');
@@ -17,6 +19,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api', userRouter);
 app.use('/auth', authRouter);
 
+
 app.listen(PORT, () => {
-    console.log(`app listen on ${PORT}`);
+    console.log(`App listen ${PORT}`);
 });
