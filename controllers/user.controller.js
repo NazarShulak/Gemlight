@@ -12,14 +12,13 @@ module.exports = {
     },
 
     createUsers: async (req, res, next) => {
-        console.log('**********************');
         try {
             const { name, age, email, password } = req.body;
-            const result = await UserModel.create({ name, age, email, password });
-            console.log(result);
+            await UserModel.create({ name, age, email, password });
+
+            res.json('user is successfully created');
         } catch (e) {
             next(e);
         }
-        res.json('created ');
     }
 };
