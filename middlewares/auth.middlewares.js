@@ -34,10 +34,10 @@ module.exports = {
 
     checkUserPasswordValidity: async (req, res, next) => {
         try {
-            const { body: { password }, user: { password: hashedPassword } } = req;
+            const { body: { password }, user: { password: pass } } = req;
 
-            if (!password === hashedPassword) {
-                throw new Error('Wrong email or password')
+            if (password !== pass) {
+                throw new Error('Wrong email or password');
             }
 
             next();
