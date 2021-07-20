@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const { authController: { loginUser } } = require('../controllers');
+const { authMiddlewares: { userBodyCheck, checkUserLogin, checkUserPasswordValidity } } = require('../middlewares');
 
 /**
  * @swagger
@@ -11,6 +12,6 @@ const { authController: { loginUser } } = require('../controllers');
  *             200:
  *                 description: Success
  */
-router.post('/local', loginUser);
+router.post('/local', userBodyCheck, checkUserLogin, checkUserPasswordValidity, loginUser);
 
 module.exports = router;

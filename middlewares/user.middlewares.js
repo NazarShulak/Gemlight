@@ -2,12 +2,12 @@ const { UserModel } = require('../database');
 const { userValidators: { createUser } } = require('../validators');
 
 module.exports = {
-    checkIfUserRegistered: async (req, res, next) => {
+    checkIfUserExist: async (req, res, next) => {
         try {
-            const { name } = req.body;
+            const { email } = req.body;
 
-            const user = await UserModel.findOne({ where: { name } });
-            console.log(user, name);
+            const user = await UserModel.findOne({ where: { email } });
+
             if (user) {
                 throw new Error('User is already registered');
             }

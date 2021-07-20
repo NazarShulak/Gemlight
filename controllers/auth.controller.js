@@ -1,16 +1,9 @@
-const { UserModel } = require('../database');
-
 module.exports = {
     loginUser: async (req, res, next) => {
         try {
-            const { email, password } = req.body;
+            const { user } = req;
 
-            const userToLogin = await UserModel.findOne({ where: { email } });
-
-            console.log(userToLogin);
-
-            res.json(userToLogin);
-
+            res.json(user);
         } catch (e) {
             next(e);
         }

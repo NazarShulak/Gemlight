@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { userController: { getUsers, createUsers } } = require('../controllers');
-const { userMiddlewares: { checkIfUserRegistered, checkUserForCreation } } = require('../middlewares');
+const { userMiddlewares: { checkIfUserExist, checkUserForCreation } } = require('../middlewares');
 
 /**
  * @swagger
@@ -22,6 +22,6 @@ router.get('/users', getUsers);
  *             200:
  *                 description: Success
  */
-router.post('/users', checkIfUserRegistered, checkUserForCreation, createUsers);
+router.post('/users', checkIfUserExist, checkUserForCreation, createUsers);
 
 module.exports = router;
