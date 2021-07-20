@@ -20,5 +20,17 @@ module.exports = {
         } catch (e) {
             next(e);
         }
+    },
+
+    deleteUsers: async (req, res, next) => {
+        try {
+            const { user_id } = req.params;
+
+            await UserModel.delete({ where: { user_id } });
+
+            res.status(204).json('User successfully deleted');
+        } catch (e) {
+            next(e);
+        }
     }
 };
