@@ -1,4 +1,5 @@
 const { UserModel } = require('../database');
+const { passwordService } = require('../services');
 
 module.exports = {
     getUsers: async (req, res, next) => {
@@ -13,8 +14,10 @@ module.exports = {
 
     createUsers: async (req, res, next) => {
         try {
-            const { name, age, email, password } = req.body;
-            await UserModel.create({ name, age, email, password });
+            const { password, ...other } = req.body;
+            const hashedPassword = await passwordService.hash(password);
+
+            await UserModel.create({ password: hashedPassword, ...other });
 
             res.json('user is successfully created');
         } catch (e) {
@@ -28,7 +31,7 @@ module.exports = {
 
             await UserModel.destroy({ where: { user_id } });
 
-            res.status(204).json('User successfully deleted');
+            res.json('User successfully deleted');
         } catch (e) {
             next(e);
         }

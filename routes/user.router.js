@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const { userController: { getUsers, createUsers, deleteUsers } } = require('../controllers');
-const { userMiddlewares: { checkIfUserExist, checkUserForCreation } } = require('../middlewares');
+const {
+    userMiddlewares: { checkIfUserExist, checkUserForCreation },
+    authMiddlewares: { checkAccessToken }
+} = require('../middlewares');
+
 
 /**
  * @swagger
@@ -33,6 +37,6 @@ router.post('/users', checkIfUserExist, checkUserForCreation, createUsers);
  *             204:
  *                 description: No content
  */
-router.delete('/users/:user_id', deleteUsers);
+router.delete('/users/:user_id', checkAccessToken, deleteUsers);
 
 module.exports = router;

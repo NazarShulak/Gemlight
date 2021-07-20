@@ -1,5 +1,7 @@
 const { UserModel } = require('../database');
 const { authValidators: { checkUserLoginBody } } = require('../validators');
+const { authService } = require('../services');
+const { constants: { AUTHORIZATION } } = require('../constants');
 
 module.exports = {
     userBodyCheck: async (req, res, next) => {
@@ -45,4 +47,29 @@ module.exports = {
             next(e);
         }
     },
+
+    checkAccessToken: async (req, res, next) => {
+        try {
+            const token = req.get(AUTHORIZATION);
+
+            if (!token) {
+                throw new Error('No token');
+            }
+
+            await authService.verifyToken(token);
+
+            const tokenObject = await UserModel.findOne({ where: { accessToken: token } });
+
+            if (!tokenObject) {
+                throw new Error('Wrong token');
+            }
+
+            req.user = tokenObject.user;
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
 };
+
