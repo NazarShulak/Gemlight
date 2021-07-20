@@ -1,6 +1,6 @@
 const { UserModel } = require('../database');
 const { authValidators: { checkUserLoginBody } } = require('../validators');
-const { authService } = require('../services');
+const { authService, passwordService } = require('../services');
 const { constants: { AUTHORIZATION } } = require('../constants');
 
 module.exports = {
@@ -36,11 +36,9 @@ module.exports = {
 
     checkUserPasswordValidity: async (req, res, next) => {
         try {
-            const { body: { password }, user: { password: pass } } = req;
+            const { body: { password }, user: { password: hashedPassword } } = req;
 
-            if (password !== pass) {
-                throw new Error('Wrong email or password');
-            }
+            await passwordService.compare(hashedPassword, password);
 
             next();
         } catch (e) {

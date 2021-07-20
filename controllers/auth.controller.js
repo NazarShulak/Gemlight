@@ -1,5 +1,5 @@
 const { authService } = require('../services');
-const { UserModel } = require('../database');
+const { AuthModel } = require('../database');
 const { constants: { AUTHORIZATION } } = require('../constants');
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
             const { user_id } = req.user;
             const tokenPair = authService.generateTokens();
 
-            await UserModel.create({ ...tokenPair, user: user_id });
+            await AuthModel.create({ ...tokenPair, user: user_id });
 
             res.json({ ...tokenPair, user: req.user });
         } catch (e) {
@@ -20,7 +20,7 @@ module.exports = {
         try {
             const { accessToken } = req.user;
 
-            await UserModel.destroy({ accessToken });
+            await AuthModel.destroy({ accessToken });
 
             res.status(204).json('USER_LOGOUT');
             next();
@@ -35,7 +35,7 @@ module.exports = {
             const { user } = req;
             const tokenPair = authService.generateTokens();
 
-            await UserModel.u({ refreshToken }, { ...tokenPair });
+            await AuthModel.update({ refreshToken }, { ...tokenPair });
 
             res.json({ ...tokenPair, user });
         } catch (e) {
