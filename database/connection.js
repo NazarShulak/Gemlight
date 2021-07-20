@@ -2,8 +2,8 @@ const Sequelize = require('sequelize');
 
 const { constants: { DB_PASSWORD, DB_CONNECTION_STRING } } = require('../constants');
 
-const sequelize = new Sequelize('users', 'admin', DB_PASSWORD, {
-    host: DB_CONNECTION_STRING,
+const sequelize = new Sequelize('users', 'admin', 'superadmin', {
+    host: 'api-database.cvhms5uyrffc.us-east-2.rds.amazonaws.com',
     dialect: 'mysql',
     logging: false
 });
