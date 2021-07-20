@@ -26,7 +26,7 @@ router.post('/users', checkIfUserExist, checkUserForCreation, createUsers);
 
 /**
  * @swagger
- * /api/users/:id:
+ * /api/users/:user_id:
  *     delete:
  *         description: Delete user
  *         responses:
