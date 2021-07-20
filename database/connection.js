@@ -9,4 +9,3 @@ const sequelize = new Sequelize('users', 'admin', DB_PASSWORD, {
 });
 
 module.exports = sequelize;
-global.seqelize = sequelize;
