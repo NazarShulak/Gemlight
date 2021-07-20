@@ -26,7 +26,7 @@ module.exports = {
         try {
             const { user_id } = req.params;
 
-            await UserModel.delete({ where: { user_id } });
+            await UserModel.destroy({ where: { user_id } });
 
             res.status(204).json('User successfully deleted');
         } catch (e) {
