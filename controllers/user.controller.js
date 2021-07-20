@@ -17,9 +17,9 @@ module.exports = {
             const { password, ...other } = req.body;
             const hashedPassword = await passwordService.hash(password);
 
-            await UserModel.create({ password: hashedPassword, ...other });
+            const createdUser = await UserModel.create({ password: hashedPassword, ...other });
 
-            res.json('user is successfully created');
+            res.json(createdUser);
         } catch (e) {
             next(e);
         }
