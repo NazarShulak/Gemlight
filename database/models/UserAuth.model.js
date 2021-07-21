@@ -10,8 +10,8 @@ const UserAuth = sequelize.define('Auth', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    user: {
-        type: Sequelize.STRING,
+    userId: {
+        type: Sequelize.INTEGER,
         allowNullL: false,
         ref: 'userInfo'
     }
