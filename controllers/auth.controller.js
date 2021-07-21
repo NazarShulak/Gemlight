@@ -8,7 +8,8 @@ module.exports = {
             const { user_id } = req.user;
             const tokenPair = authService.generateTokens();
 
-            await AuthModel.create({ ...tokenPair, userId: user_id });
+            const newVar = await AuthModel.create({ ...tokenPair, userId: user_id });
+            console.log(newVar);
 
             res.json({ ...tokenPair, user: req.user });
         } catch (e) {
