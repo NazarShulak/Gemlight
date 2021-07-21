@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../connection');
-const UserModel = require('./User.model');
 
 const UserAuth = sequelize.define('Auth', {
     accessToken: {
@@ -20,7 +19,5 @@ const UserAuth = sequelize.define('Auth', {
     tableName: 'userAuth',
     timestamps: false
 });
-
-UserAuth.hasOne(UserModel);
 
 module.exports = UserAuth;

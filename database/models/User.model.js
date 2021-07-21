@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../connection');
+const UserAuth = require('./UserAuth.model');
 
-module.exports = sequelize.define('User', {
+const UserModel = sequelize.define('User', {
 
     user_id: {
         type: Sequelize.INTEGER,
@@ -29,3 +30,7 @@ module.exports = sequelize.define('User', {
     tableName: 'userInfo',
     timestamps: false
 });
+
+UserModel.hasOne(UserAuth);
+
+module.exports = UserModel;
