@@ -3,7 +3,6 @@ const sequelize = require('../connection');
 const UserAuth = require('./UserAuth.model');
 
 const UserModel = sequelize.define('User', {
-
     user_id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -28,7 +27,12 @@ const UserModel = sequelize.define('User', {
     }
 }, {
     tableName: 'userInfo',
-    timestamps: false
+    timestamps: false,
+    classMethods: {
+        associate: function (models) {
+            UserModel.hasOne(models.UserModel, { foreignKey: 'userId' });
+        }
+    }
 });
 
 UserModel.hasOne(UserAuth);

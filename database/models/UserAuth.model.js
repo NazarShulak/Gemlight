@@ -12,12 +12,16 @@ const UserAuth = sequelize.define('Auth', {
     },
     userId: {
         type: Sequelize.INTEGER,
-        allowNullL: false,
-        ref: 'userInfo'
+        allowNullL: false
     }
 }, {
     tableName: 'userAuth',
-    timestamps: false
+    timestamps: false,
+    classMethods: {
+        associate: function (models) {
+            Comment.belongsTo(models.UserModel, { foreignKey: 'userId' });
+        }
+    }
 });
 
 module.exports = UserAuth;

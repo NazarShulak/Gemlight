@@ -22,7 +22,7 @@ module.exports = {
 
             await AuthModel.destroy({ accessToken });
 
-            res.status(204).json('USER_LOGOUT');
+            res.json('USER_LOGOUT');
             next();
         } catch (e) {
             next(e);
