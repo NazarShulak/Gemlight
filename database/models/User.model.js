@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../connection');
-const UserAuth = require('./UserAuth.model');
 
 const UserModel = sequelize.define('User', {
     user_id: {
@@ -30,7 +29,7 @@ const UserModel = sequelize.define('User', {
     timestamps: false,
     classMethods: {
         associate: function (models) {
-            UserModel.hasOne(models.UserModel, { foreignKey: 'userId' });
+            UserModel.hasOne(models.AuthModel, { foreignKey: 'userId' });
         }
     }
 });

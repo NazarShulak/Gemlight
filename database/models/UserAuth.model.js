@@ -19,7 +19,7 @@ const UserAuth = sequelize.define('Auth', {
     timestamps: false,
     classMethods: {
         associate: function (models) {
-            Comment.belongsTo(models.UserModel, { foreignKey: 'userId' });
+            UserAuth.belongsTo(models.UserModel, { foreignKey: 'userId' });
         }
     }
 });
