@@ -34,6 +34,5 @@ const UserModel = sequelize.define('User', {
     }
 });
 
-UserModel.hasOne(UserAuth);
 
 module.exports = UserModel;
