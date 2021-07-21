@@ -15,8 +15,8 @@ const {
 
 module.exports = {
     generateTokens: () => {
-        const accessToken = jwt.sign({}, ACCESS_TOKEN, { expiresIn: ACCESS_TOKEN_LIFETIME });
-        const refreshToken = jwt.sign({}, REFRESH_TOKEN, { expiresIn: REFRESH_TOKEN_LIFETIME });
+        const accessToken = jwt.sign({}, ACCESS_TOKEN+'', { expiresIn: ACCESS_TOKEN_LIFETIME});
+        const refreshToken = jwt.sign({}, REFRESH_TOKEN+'', { expiresIn: REFRESH_TOKEN_LIFETIME });
 
         return {
             accessToken,
