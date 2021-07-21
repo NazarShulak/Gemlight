@@ -72,7 +72,7 @@ module.exports = {
 
     checkIfUserLogged: async (req, res, next) => {
         try {
-            const { user_id } = req.body.user;
+            const { user: { user_id } } = req;
 
             const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
 
