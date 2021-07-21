@@ -20,7 +20,7 @@ module.exports = {
         try {
             const { accessToken } = req.user;
 
-            await AuthModel.destroy({ accessToken });
+            await AuthModel.destroy({ where: { accessToken } });
 
             res.json('USER_LOGOUT');
             next();

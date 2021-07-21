@@ -1,4 +1,4 @@
-const { UserModel } = require('../database');
+const { UserModel, AuthModel } = require('../database');
 const { authValidators: { checkUserLoginBody } } = require('../validators');
 const { authService, passwordService } = require('../services');
 const { constants: { AUTHORIZATION } } = require('../constants');
@@ -56,13 +56,29 @@ module.exports = {
 
             await authService.verifyToken(token);
 
-            const tokenObject = await UserModel.findOne({ where: { accessToken: token } });
+            const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
 
             if (!tokenObject) {
                 throw new Error('Wrong token');
             }
 
             req.user = tokenObject.user;
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    checkIfUserLogged: async (req, res, next) => {
+        try {
+            const { user: { user_id } } = req.body
+
+            const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
+
+            if (loggedUser) {
+                throw new Error('You are logged');
+            }
 
             next();
         } catch (e) {
