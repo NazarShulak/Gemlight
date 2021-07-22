@@ -20,7 +20,7 @@ const {
 router.get('/', getAllProducts);
 router.get('/:id', getProductById);
 router.get('/:id/review', productExistingCheck, getAllProductReviews);
-router.post('/:id/review', productExistingCheck, createProductReview);
+router.post('/:id/review', productExistingCheck,checkIfUserExistById, createProductReview);
 router.get('/check/:name', uniqueNameCheck);
 router.post('/', checkIfUserExistById, checkUniqueProductId, checkInputFields, addNewProduct);
 router.put('/:id', checkIfUserExistById, productExistingCheck, checkInputFields, updateProduct);
