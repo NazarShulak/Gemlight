@@ -23,3 +23,5 @@ const ReviewModel = sequelize.define('Review', {
         }
     }
 });
+
+module.exports = ReviewModel;
