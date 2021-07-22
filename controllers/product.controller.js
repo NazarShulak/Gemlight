@@ -93,8 +93,9 @@ module.exports = {
         try {
             const { id } = req.params;
 
-            await ReviewModel.findAll({ where: { productId: id } });
+            const reviews = await ReviewModel.findAll({ where: { productId: id } });
 
+            res.json(reviews);
         } catch (e) {
             next(e);
         }
