@@ -32,6 +32,7 @@ const ProductModel = sequelize.define('Product', {
     classMethods: {
         associate: function (models) {
             ProductModel.belongsTo(models.UserModel, { foreignKey: 'userId' })
+            ProductModel.hasMany(models.ReviewModel, { as: 'reviews' })
         }
     }
 });
