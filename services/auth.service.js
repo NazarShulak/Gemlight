@@ -28,6 +28,8 @@ module.exports = {
         const secretWord = tokenType === ACCESS ? ACCESS_TOKEN : REFRESH_TOKEN;
         const verifyPromise = promisify(jwt.verify);
 
+
+
         await verifyPromise(token, secretWord);
     }
 };

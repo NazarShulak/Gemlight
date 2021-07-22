@@ -1,38 +1,40 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../connection');
 
-const UserModel = sequelize.define('User', {
-    user_id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false
-    },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    age: {
+const ProductModel = sequelize.define('Product', {
+    productId: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    email: {
+    userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    title: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    password: {
+    description: {
         type: Sequelize.STRING,
+        allowNull: true
+    },
+    price: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+    },
+    quantity: {
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 }, {
-    tableName: 'userInfo',
+    tableName: 'products',
     timestamps: false,
     classMethods: {
         associate: function (models) {
-            UserModel.hasOne(models.AuthModel, { foreignKey: 'userId' });
-            UserModel.hasMany(models.ProductModel, { as: 'products' });
+            ProductModel.belongsTo(models.UserModel, { foreignKey: 'userId' })
         }
     }
 });
 
-module.exports = UserModel;
+
+module.exports = ProductModel;

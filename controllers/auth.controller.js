@@ -8,7 +8,13 @@ module.exports = {
             const { user_id } = req.user;
             const tokenPair = authService.generateTokens();
 
-            await AuthModel.create({ ...tokenPair, userId: user_id });
+            const user = await AuthModel.findOne({ userId: user_id });
+
+            if (user) {
+                await AuthModel.update({ ...tokenPair }, { where: { userId: user_id } });
+            } else {
+                await AuthModel.create({ ...tokenPair, userId: user_id });
+            }
 
             res.json({ ...tokenPair, user: req.user });
         } catch (e) {
@@ -35,7 +41,7 @@ module.exports = {
             const { user } = req;
             const tokenPair = authService.generateTokens();
 
-            await AuthModel.update({ refreshToken }, { ...tokenPair });
+            await AuthModel.update({ ...tokenPair }, { where: { refreshToken } });
 
             res.json({ ...tokenPair, user });
         } catch (e) {
