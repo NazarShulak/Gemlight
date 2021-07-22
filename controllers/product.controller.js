@@ -91,10 +91,9 @@ module.exports = {
 
     getAllProductReviews: async (req, res, next) => {
         try {
-            const { id: productId } = req.params;
-            console.log(productId);
+            const { id } = req.params;
 
-            await ReviewModel.findAll({ where: { productId } })
+            await ReviewModel.findAll({ where: { productId: id } });
 
         } catch (e) {
             next(e);
