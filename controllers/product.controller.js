@@ -76,5 +76,11 @@ module.exports = {
         } catch (e) {
             next(e);
         }
+    },
+
+    createProductReview: async (req, res, next) => {
+        const { ...review } = req.body;
+
+
     }
 };

@@ -30,5 +30,21 @@ module.exports = {
         } catch (e) {
             next(e);
         }
+    },
+
+    checkIfUserExistById: async (req, res, next) => {
+        try {
+            const { userId } = req.body;
+
+            const user = await UserModel.findOne({ where: { user_id: userId } });
+
+            if (!user) {
+                throw new Error('Wrong userId');
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
     }
 }
