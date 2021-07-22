@@ -33,7 +33,6 @@ module.exports = {
 
     productExistingCheck: async (req, res, next) => {
         try {
-            console.log('*****');
             const { id } = req.params;
             const product = await ProductModel.findOne({ where: { productId: id } });
 

@@ -91,7 +91,8 @@ module.exports = {
 
     getAllProductReviews: async (req, res, next) => {
         try {
-            const { id: productId } = req.params
+            const { id: productId } = req.params;
+            console.log(productId);
 
             await ReviewModel.findAll({ where: { productId } })
 
