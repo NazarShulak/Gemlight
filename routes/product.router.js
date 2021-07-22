@@ -6,15 +6,17 @@ const {
         uniqueNameCheck,
         deleteAllProducts,
         addNewProduct,
-        updateProduct
+        updateProduct,
+        getAllProducts
     }
 } = require('../controllers');
-const { productMiddlewares: { check } } = require('../middlewares');
+const { productMiddlewares: { checkInputFields } } = require('../middlewares');
 
-router.get('/check/:name', check, uniqueNameCheck);
-router.get('/:id', check, getProductById);
-router.put('/:id', check, updateProduct);
-router.post('/', check, addNewProduct);
-router.delete('/', check, deleteAllProducts);
+router.get('/',  getAllProducts);
+router.get('/:id', getProductById);
+router.get('/check/:name', uniqueNameCheck);
+router.post('/', checkInputFields, addNewProduct);
+router.put('/:id', checkInputFields, updateProduct);
+router.delete('/',  deleteAllProducts);
 
 module.exports = router;

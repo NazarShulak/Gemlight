@@ -17,6 +17,18 @@ module.exports = {
         }
     },
 
+    getAllProducts: async (req, res, next) => {
+        try {
+            const { ...searchParams } = req.body;
+
+            const products = await ProductModel.findAll({ where: { ...searchParams } });
+
+            res.json(products);
+        } catch (e) {
+            next(e);
+        }
+    },
+
     uniqueNameCheck: async (req, res, next) => {
         try {
             const { name } = req.params;

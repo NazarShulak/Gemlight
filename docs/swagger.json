@@ -1,0 +1,10 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.2.0",
+    "title": "projectNob API",
+    "description": "Documentation for PicUpMedia"
+  },
+  "paths": {
+  }
+}
