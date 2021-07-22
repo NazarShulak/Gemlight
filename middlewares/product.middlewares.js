@@ -34,9 +34,11 @@ module.exports = {
     productExistingCheck: async (req, res, next) => {
         try {
             const { id } = req.params;
+            const { productId } = req.body;
+
             const product = await ProductModel.findOne({ where: { productId: id } });
 
-            if (!product) {
+            if (!product && id !== productId) {
                 throw  new Error('No such product');
             }
 
