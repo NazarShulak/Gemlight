@@ -1,4 +1,4 @@
-const { ProductModel } = require('../database');
+const { ProductModel, ReviewModel } = require('../database');
 
 
 module.exports = {
@@ -33,10 +33,9 @@ module.exports = {
         try {
             const { name } = req.params;
 
-            const products = await ProductModel.findAll();
-            const notUnique = products.filter(item => item.title === name);
+            const product = await ProductModel.find({ where: { title: name } });
 
-            if (notUnique) {
+            if (product) {
                 throw new Error('not unique name');
             }
 
@@ -79,8 +78,25 @@ module.exports = {
     },
 
     createProductReview: async (req, res, next) => {
-        const { ...review } = req.body;
+        try {
+            const { ...review } = req.body;
 
+            const reviewObject = await ReviewModel.create({ ...review });
 
+            res.json(reviewObject);
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    getAllProductReviews: async (req, res, next) => {
+        try {
+            const { id: productId } = req.params
+
+            await ReviewModel.findAll({ where: { productId } })
+
+        } catch (e) {
+            next(e);
+        }
     }
 };
