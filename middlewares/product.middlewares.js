@@ -1,4 +1,4 @@
-const { productValidators: { checkProductForCreation } } = require('../validators');
+const { productValidators: { checkProductForCreation, reviewBodyCheck } } = require('../validators');
 const { ProductModel } = require('../database');
 
 module.exports = {
@@ -31,15 +31,28 @@ module.exports = {
         }
     },
 
-    productExistingCheck: async (req, res, next) => {
+    productExistenceCheck: async (req, res, next) => {
         try {
             const { id } = req.params;
-            const { productId } = req.body;
 
             const product = await ProductModel.findOne({ where: { productId: id } });
 
-            if (!product && id !== productId) {
+            if (!product) {
                 throw  new Error('No such product');
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    reviewBodyCheck: async (req, res, next) => {
+        try {
+            const { error } = reviewBodyCheck.validate(req.body);
+
+            if (error) {
+                throw new Error('Bad input data!');
             }
 
             next();

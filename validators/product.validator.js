@@ -8,5 +8,10 @@ module.exports = {
         description: Joi.string(),
         price: Joi.number().required(),
         quantity: Joi.number().required()
+    }),
+
+    reviewBodyCheck: Joi.object().keys({
+        userId: Joi.number().required(),
+        reviewBody: Joi.string().required()
     })
 };

@@ -81,7 +81,7 @@ module.exports = {
         try {
             const { ...review } = req.body;
 
-            const reviewObject = await ReviewModel.create({ ...review });
+            const reviewObject = await ReviewModel.create({ ...review, productId: req.params.id });
 
             res.json(reviewObject);
         } catch (e) {

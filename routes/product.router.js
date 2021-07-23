@@ -9,21 +9,21 @@ const {
         updateProduct,
         getAllProducts,
         createProductReview,
-        getAllProductReviews
+        getAllProductReviews,
     }
 } = require('../controllers');
 const {
-    productMiddlewares: { checkInputFields, checkUniqueProductId, productExistingCheck },
+    productMiddlewares: { checkInputFields, checkUniqueProductId, productExistenceCheck, reviewBodyCheck },
     userMiddlewares: { checkIfUserExistById }
 } = require('../middlewares');
 
 router.get('/', getAllProducts);
 router.get('/:id', getProductById);
-router.get('/:id/review', productExistingCheck, getAllProductReviews);
-router.post('/:id/review', productExistingCheck,checkIfUserExistById, createProductReview);
+router.get('/:id/review', productExistenceCheck, getAllProductReviews);
+router.post('/:id/review', productExistenceCheck, reviewBodyCheck, checkIfUserExistById, createProductReview);
 router.get('/check/:name', uniqueNameCheck);
 router.post('/', checkIfUserExistById, checkUniqueProductId, checkInputFields, addNewProduct);
-router.put('/:id', checkIfUserExistById, productExistingCheck, checkInputFields, updateProduct);
+router.put('/:id', checkIfUserExistById, productExistenceCheck, checkInputFields, updateProduct);
 router.delete('/', deleteAllProducts);
 
 module.exports = router;

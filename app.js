@@ -3,13 +3,13 @@ const express = require('express');
 
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-require('./docs/swagger.json');
 
 require('./database/connection');
 const sequelize = require("./database/connection");
 
-const { constants: { PORT }, swaggerOptions } = require('./constants');
+const { constants: { PORT } } = require('./constants');
 const { userRouter, authRouter, productRouter } = require('./routes');
+const swaggerOptions = require('./docs');
 
 const app = express();
 
