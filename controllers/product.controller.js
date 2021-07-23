@@ -39,7 +39,7 @@ module.exports = {
                 res.json('not unique');
             }
 
-            res.end();
+            res.json('Unique');
         } catch (e) {
             next(e);
         }
