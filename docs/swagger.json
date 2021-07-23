@@ -55,6 +55,9 @@
         }
       },
       "post": {
+        "tags": [
+          "User"
+        ],
         "summary": "Create user",
         "parameters": [
           {
@@ -101,8 +104,11 @@
         }
       }
     },
-    "/api/users/:user_id": {
+    "/api/users/:id": {
       "delete": {
+        "tags": [
+          "User"
+        ],
         "summary": "Delete user",
         "description": "Method for deletion of user",
         "produces": [
