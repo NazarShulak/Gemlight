@@ -3,7 +3,7 @@
     "/auth/local": {
       "post": {
         "tags": [
-          "auth"
+          "Authorization"
         ],
         "summary": "Auth user",
         "description": "Method for login user to platform",
@@ -41,7 +41,7 @@
     "/api/users": {
       "get": {
         "tags": [
-          "GetUsers"
+          "User"
         ],
         "summary": "Get all users",
         "description": "Method for login user to platform",
@@ -55,9 +55,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Creates new user"
-        ],
+        "summary": "Create user",
         "parameters": [
           {
             "name": "email",
@@ -105,10 +103,7 @@
     },
     "/api/users/:user_id": {
       "delete": {
-        "tags": [
-          "Delete user"
-        ],
-        "summary": "Deletes users",
+        "summary": "Delete user",
         "description": "Method for deletion of user",
         "produces": [
           "application/json"
