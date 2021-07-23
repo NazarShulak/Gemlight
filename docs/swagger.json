@@ -1,0 +1,154 @@
+{
+  "paths": {
+    "/auth/local": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Auth user",
+        "description": "Method for login user to platform",
+        "operationId": "authUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "example@gmail.com"
+            }
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Pa$$w0rd!"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Auth was successfully"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "GetUsers"
+        ],
+        "summary": "Get all users",
+        "description": "Method for login user to platform",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Creates new user"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "example@gmail.com"
+            }
+          },
+          {
+            "name": "age",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 18
+            }
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "test"
+            }
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Pa$$w0rd!"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/users/:user_id": {
+      "delete": {
+        "tags": [
+          "Delete user"
+        ],
+        "summary": "Deletes users",
+        "description": "Method for deletion of user",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    }
+  },
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "PickUpMedia"
+  },
+  "definitions": {
+    "authUserResponse": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "example": "$2b$fdsfsfskf983fjdskskldsad"
+        },
+        "refresh_token": {
+          "type": "string",
+          "example": "$43b$fdsfsfskf983fjdskskldsad"
+        }
+      }
+    }
+  }
+}
