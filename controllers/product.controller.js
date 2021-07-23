@@ -36,10 +36,10 @@ module.exports = {
             const product = await ProductModel.findAll({ where: { title: name } });
 
             if (product) {
-                throw new Error('not unique name');
+                res.json('not unique');
             }
 
-            res.json('not unique');
+            res.end();
         } catch (e) {
             next(e);
         }
