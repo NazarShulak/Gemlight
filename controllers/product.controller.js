@@ -33,7 +33,7 @@ module.exports = {
         try {
             const { name } = req.params;
 
-            const product = await ProductModel.find({ where: { title: name } });
+            const product = await ProductModel.findAll({ where: { title: name } });
 
             if (product) {
                 throw new Error('not unique name');

@@ -118,10 +118,8 @@
           {
             "name": "user_id",
             "required": true,
-            "in": "body",
-            "schema": {
-              "type": "string"
-            }
+            "in": "path",
+            "type": "string"
           }
         ],
         "responses": {
@@ -442,7 +440,7 @@
   "swagger": "2.0",
   "info": {
     "version": "0.0.1",
-    "title": "PickUpMedia"
+    "title": "ProjectNob API"
   },
   "definitions": {
     "authUserResponse": {
