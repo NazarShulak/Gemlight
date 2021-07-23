@@ -98,13 +98,13 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success"
+          "201": {
+            "description": "Successfully created"
           }
         }
       }
     },
-    "/api/users/:id": {
+    "/api/users/:user_id": {
       "delete": {
         "tags": [
           "User"
@@ -127,6 +127,313 @@
         "responses": {
           "204": {
             "description": "No content"
+          }
+        }
+      }
+    },
+    "/api/product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get all products",
+        "description": "Method for getting user`s products",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Create new product",
+        "description": "Method for posting new product",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 12
+            }
+          },
+          {
+            "name": "userId",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 18
+            }
+          },
+          {
+            "name": "title",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "title"
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Description!"
+            }
+          },
+          {
+            "name": "price",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1000
+            }
+          },
+          {
+            "name": "quantity",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 99
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Delete products",
+        "description": "Method for deletion of all products of user",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    },
+    "/api/product/:id": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get product by id",
+        "description": "Method for getting product by its id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Update product by id",
+        "description": "Method for updating product by its id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "in": "path"
+          },
+          {
+            "name": "productId",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 12
+            }
+          },
+          {
+            "name": "userId",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 18
+            }
+          },
+          {
+            "name": "title",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "title"
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Description!"
+            }
+          },
+          {
+            "name": "price",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1000
+            }
+          },
+          {
+            "name": "quantity",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 99
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/product/:id/review": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get all reviews of product by id",
+        "description": "Method for getting  product`s reviews",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Create review of product by id",
+        "description": "Method for creating product`s reviews",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "userId",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "reviewBody",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Product review"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created"
+          }
+        }
+      }
+    },
+    "/api/product/check/:name": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Checks whether product name is unique",
+        "description": "Method for unique name check",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
