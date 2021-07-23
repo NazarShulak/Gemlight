@@ -1,5 +1,5 @@
 module.exports = {
-    openapi:"0.0.1",
+    openapi:"3.0.0",
     info:{
         version:"1.0.0",
         title:"PickUpMedia",
