@@ -1,6 +1,11 @@
-const { authService } = require('../services');
-const { AuthModel } = require('../database');
 const { constants: { AUTHORIZATION } } = require('../constants');
+const { AuthModel } = require('../database');
+const { redisClient } = require('../database/connection');
+const { ErrorHandler } = require("../error");
+const { authService } = require('../services');
+const { promisify } = require('util');
+
+const asyncRedis = promisify(redisClient.get).bind(redisClient);
 
 module.exports = {
     loginUser: async (req, res, next) => {
@@ -8,13 +13,9 @@ module.exports = {
             const { user_id } = req.user;
             const tokenPair = authService.generateTokens();
 
-            const user = await AuthModel.findOne({ userId: user_id });
+            const user = await asyncRedis.set(user_id, { ...tokenPair }, 'EX', 60 * 60 * 24);
 
-            if (user) {
-                await AuthModel.update({ ...tokenPair }, { where: { userId: user_id } });
-            } else {
-                await AuthModel.create({ ...tokenPair, userId: user_id });
-            }
+            console.log(user);
 
             res.json({ ...tokenPair, user: req.user });
         } catch (e) {
@@ -24,9 +25,9 @@ module.exports = {
 
     logout: async (req, res, next) => {
         try {
-            const { accessToken } = req.user;
+            const { user_id } = req.user;
 
-            await AuthModel.destroy({ where: { accessToken } });
+            await redisClient.del(user_id);
 
             res.json('USER_LOGOUT');
             next();
