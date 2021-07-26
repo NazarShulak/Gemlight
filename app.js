@@ -33,9 +33,10 @@ app.use(_handleErrors);
         app.listen(PORT, () => {
             console.log(`App listen ${PORT}`);
         });
+
+        cronRun();
     } catch (e) {
         console.log(e)
     }
 })();
 
-cronRun();
