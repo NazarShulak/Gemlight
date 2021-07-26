@@ -5,7 +5,7 @@ module.exports = {
     getProductById: async (req, res, next) => {
         try {
             const { id } = req.params;
-            const product = await ProductModel.find({ where: { productId: id } });
+            const product = await ProductModel.findOne({ where: { productId: id } });
 
             if (!product) {
                 throw new Error('No such product');
@@ -33,7 +33,7 @@ module.exports = {
         try {
             const { name } = req.params;
 
-            const product = await ProductModel.find({ where: { title: name } });
+            const product = await ProductModel.findOne({ where: { title: name } });
 
 
             if (product) {
