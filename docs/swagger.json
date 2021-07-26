@@ -257,7 +257,7 @@
             "name": "id",
             "required": true,
             "in": "path",
-            "type": "integer"
+            "type": "string"
           }
         ],
         "responses": {
@@ -279,7 +279,7 @@
           {
             "name": "id",
             "required": true,
-            "type": "integer",
+            "type": "string",
             "in": "path"
           },
           {
