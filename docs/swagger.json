@@ -285,15 +285,6 @@
             "in": "path"
           },
           {
-            "name": "productId",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "example": 12
-            }
-          },
-          {
             "name": "userId",
             "in": "body",
             "required": true,

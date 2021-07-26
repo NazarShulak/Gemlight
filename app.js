@@ -15,11 +15,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 app.use('/auth', authRouter);
 app.use('/api', userRouter);
 app.use('/api/product', productRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 
 (async () => {
     try {

@@ -47,7 +47,10 @@ module.exports = {
 
     deleteAllProducts: async (req, res, next) => {
         try {
+            const { user_id } = req.body;
+            await ProductModel.destroy({ where: { userId: user_id } });
 
+            res.json('Successfully deleted');
         } catch (e) {
             next(e);
         }
