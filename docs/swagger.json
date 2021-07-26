@@ -256,7 +256,7 @@
           {
             "name": "id",
             "required": true,
-            "in": "path",
+            "in": "query",
             "type": "string"
           }
         ],
@@ -280,7 +280,7 @@
             "name": "id",
             "required": true,
             "type": "string",
-            "in": "path"
+            "in": "query"
           },
           {
             "name": "userId",
