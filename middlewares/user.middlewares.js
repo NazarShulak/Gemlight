@@ -1,4 +1,6 @@
+const { errorCodesEnum: { CONFLICT, BAD_REQUEST } } = require('../constants');
 const { UserModel } = require('../database');
+const { ErrorHandler } = require('../error');
 const { userValidators: { createUser } } = require('../validators');
 
 module.exports = {
@@ -9,7 +11,7 @@ module.exports = {
             const user = await UserModel.findOne({ where: { email } });
 
             if (user) {
-                throw new Error('User is already registered');
+                throw new ErrorHandler(CONFLICT, 'User is already registered', 4090);
             }
 
             next();
@@ -23,7 +25,7 @@ module.exports = {
             const { error } = createUser.validate(req.body);
 
             if (error) {
-                throw new Error('Bad input data!');
+                throw new ErrorHandler(BAD_REQUEST, 'Bad input data!', 4000);
             }
 
             next();
@@ -39,7 +41,7 @@ module.exports = {
             const user = await UserModel.findOne({ where: { user_id: userId } });
 
             if (!user) {
-                throw new Error('Wrong userId');
+                throw new ErrorHandler(CONFLICT, 'Wrong userId', 4091);
             }
 
             next();

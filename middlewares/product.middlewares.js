@@ -1,5 +1,7 @@
-const { productValidators: { checkProductForCreation, reviewBodyCheck } } = require('../validators');
+const { errorCodesEnum: { CONFLICT, BAD_REQUEST } } = require('../constants');
+const { ErrorHandler } = require('../error');
 const { ProductModel } = require('../database');
+const { productValidators: { checkProductForCreation, reviewBodyCheck } } = require('../validators');
 
 module.exports = {
     checkInputFields: async (req, res, next) => {
@@ -7,7 +9,7 @@ module.exports = {
             const { error } = checkProductForCreation.validate(req.body);
 
             if (error) {
-                throw new Error('Bad input data!');
+                throw new ErrorHandler(BAD_REQUEST, 'Bad input data!', 4002);
             }
 
             next();
@@ -22,7 +24,7 @@ module.exports = {
             const product = await ProductModel.findOne({ where: { productId } });
 
             if (product) {
-                throw new Error('ProductId is not unique!');
+                throw new ErrorHandler(CONFLICT, 'ProductId is not unique!', 4091);
             }
 
             next();
@@ -38,7 +40,7 @@ module.exports = {
             const product = await ProductModel.findOne({ where: { productId: id } });
 
             if (!product) {
-                throw  new Error('No such product');
+                throw  new ErrorHandler(BAD_REQUEST, 'No such product', 4003);
             }
 
             next();
@@ -52,7 +54,7 @@ module.exports = {
             const { error } = reviewBodyCheck.validate(req.body);
 
             if (error) {
-                throw new Error('Bad input data!');
+                throw new ErrorHandler(BAD_REQUEST, 'Bad input data!', 4004);
             }
 
             next();

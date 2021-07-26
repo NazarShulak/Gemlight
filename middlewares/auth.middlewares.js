@@ -1,7 +1,8 @@
+const { constants: { AUTHORIZATION }, errorCodesEnum: { CONFLICT, BAD_REQUEST } } = require('../constants');
 const { UserModel, AuthModel } = require('../database');
+const { ErrorHandler } = require('../error');
 const { authValidators: { checkUserLoginBody } } = require('../validators');
 const { authService, passwordService } = require('../services');
-const { constants: { AUTHORIZATION } } = require('../constants');
 
 module.exports = {
     userBodyCheck: async (req, res, next) => {
@@ -9,7 +10,7 @@ module.exports = {
             const { error } = checkUserLoginBody.validate(req.body);
 
             if (error) {
-                throw new Error('Bad input data!');
+                throw new ErrorHandler(BAD_REQUEST, 'Bad input data!', 4000);
             }
 
             next();
@@ -24,7 +25,7 @@ module.exports = {
             const user = await UserModel.findOne({ where: { email } });
 
             if (!user) {
-                throw new Error('Wrong email or password');
+                throw new Error(CONFLICT, 'Wrong email or password', 4093);
             }
 
             req.user = user;
@@ -51,7 +52,7 @@ module.exports = {
             const token = req.get(AUTHORIZATION);
 
             if (!token) {
-                throw new Error('No token');
+                throw new ErrorHandler(BAD_REQUEST, 'No token', 4001);
             }
 
             await authService.verifyToken(token);
@@ -59,7 +60,7 @@ module.exports = {
             const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
 
             if (!tokenObject) {
-                throw new Error('Wrong token');
+                throw new ErrorHandler(BAD_REQUEST, 'Wrong token', 4005);
             }
 
             req.user = tokenObject.user;
@@ -77,7 +78,7 @@ module.exports = {
             const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
 
             if (loggedUser) {
-                throw new Error('You are logged');
+                throw new ErrorHandler(BAD_REQUEST, 'You are logged', 4001);
             }
 
             next();

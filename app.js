@@ -9,6 +9,7 @@ const sequelize = require("./database/connection");
 
 const { constants: { PORT } } = require('./constants');
 const { userRouter, authRouter, productRouter } = require('./routes');
+const { errorService: { _handleErrors } } = require('./services');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/api', userRouter);
 app.use('/api/product', productRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
+app.use(_handleErrors);
 
 (async () => {
     try {
