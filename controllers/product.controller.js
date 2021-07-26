@@ -37,7 +37,7 @@ module.exports = {
 
 
             if (product) {
-                return res.json('not unique');
+                res.json('not unique');
             }
 
             res.json('Unique');
