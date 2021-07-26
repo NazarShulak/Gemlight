@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../connection');
+const { sequelize } = require('../connection');
 
 const UserAuth = sequelize.define('Auth', {
     accessToken: {

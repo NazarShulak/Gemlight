@@ -1,11 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 
+
+
 const swaggerUi = require('swagger-ui-express');
 const docs = require('./docs/swagger.json');
 
 require('./database/connection');
-const sequelize = require("./database/connection");
+const { sequelize } = require("./database/connection");
 
 const { constants: { PORT } } = require('./constants');
 const { userRouter, authRouter, productRouter } = require('./routes');
@@ -27,6 +29,7 @@ app.use(_handleErrors);
     try {
         // { force: true }
         await sequelize.sync();
+
 
         app.listen(PORT, () => {
             console.log(`App listen ${PORT}`);
