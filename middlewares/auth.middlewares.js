@@ -78,6 +78,7 @@ module.exports = {
 
             const logged = await redisClient.exists(user_id);
 
+            console.log(logged)
             if (logged) {
                 throw new ErrorHandler(BAD_REQUEST, 'Already logged', 4003);
             }
