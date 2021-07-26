@@ -76,7 +76,7 @@ module.exports = {
         try {
             const { user: { user_id } } = req;
 
-            await redisClient.exist(user_id).then(value => {
+            await redisClient.exists(user_id).then(value => {
                 if (value === 1) {
                     throw new ErrorHandler(BAD_REQUEST, 'You are logged', 4001);
                 }
