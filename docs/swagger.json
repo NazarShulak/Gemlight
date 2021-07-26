@@ -256,10 +256,8 @@
           {
             "name": "id",
             "required": true,
-            "in": "body",
-            "schema": {
-              "type": "string"
-            }
+            "in": "path",
+            "type": "integer"
           }
         ],
         "responses": {
@@ -281,7 +279,7 @@
           {
             "name": "id",
             "required": true,
-            "type": "string",
+            "type": "integer",
             "in": "path"
           },
           {
