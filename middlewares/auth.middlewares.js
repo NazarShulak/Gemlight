@@ -1,5 +1,6 @@
 const { constants: { AUTHORIZATION }, errorCodesEnum: { CONFLICT, BAD_REQUEST } } = require('../constants');
 const { UserModel, AuthModel } = require('../database');
+const { redisClient } = require('../database/connection');
 const { ErrorHandler } = require('../error');
 const { authValidators: { checkUserLoginBody } } = require('../validators');
 const { authService, passwordService } = require('../services');
@@ -75,11 +76,11 @@ module.exports = {
         try {
             const { user: { user_id } } = req;
 
-            const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
-
-            if (loggedUser) {
-                throw new ErrorHandler(BAD_REQUEST, 'You are logged', 4001);
-            }
+            await redisClient.exist(user_id).then(value => {
+                if (value === 1) {
+                    throw new ErrorHandler(BAD_REQUEST, 'You are logged', 4001);
+                }
+            })
 
             next();
         } catch (e) {
