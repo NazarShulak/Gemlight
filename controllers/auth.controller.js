@@ -15,11 +15,13 @@ module.exports = {
             const tokenPair = authService.generateTokens();
 
             // const user = await asyncRedis.set(user_id, { ...tokenPair }, 'EX', 60 * 60 * 24);
-            const user = await AuthModel.create({ user_id, ...tokenPair, expireAt: date.setDate(date.getDate() + 30) });
+            const user = await AuthModel.create({
+                userId: user_id, ...tokenPair,
+                expireAt: date.setDate(date.getDate() + 1)
+            });
 
-            console.log(user);
 
-            res.json({ ...tokenPair, user: req.user });
+            res.json({ ...tokenPair, user});
         } catch (e) {
             next(e);
         }

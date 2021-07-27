@@ -25,7 +25,7 @@ module.exports = {
             const user = await UserModel.findOne({ where: { email } });
 
             if (!user) {
-                throw new Error(CONFLICT, 'Wrong email or password', 4093);
+                throw new ErrorHandler(CONFLICT, 'Wrong email or password', 4093);
             }
 
             req.user = user;
