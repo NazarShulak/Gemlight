@@ -75,6 +75,7 @@ module.exports = {
         try {
             const { user: { user_id } } = req;
 
+            //?????
             const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
             // const logged = await redisClient.exists(user_id);
 
