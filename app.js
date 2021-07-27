@@ -27,7 +27,7 @@ app.use(_handleErrors);
 
 (async () => {
     try {
-        await sequelize.sync({ force: true });
+        await sequelize.sync();
 
         app.listen(PORT, () => {
             console.log(`App listen ${PORT}`);
