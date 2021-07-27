@@ -21,7 +21,7 @@ module.exports = {
             });
 
 
-            res.json({ ...tokenPair, user});
+            res.json(user);
         } catch (e) {
             next(e);
         }
