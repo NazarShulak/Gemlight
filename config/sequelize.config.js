@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { constants: { DB_CONNECTION_STRING, DB_PASSWORD } } = require('../constants');
 
 module.exports = {
