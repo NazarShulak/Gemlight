@@ -4,6 +4,6 @@ module.exports = async () => {
     const currentDate = new Date();
 
     await AuthModel.destroy({
-        where: { expireAt: { [Op.lt]: currentDate } }
+        where: { expireAt: { [Option.lt]: currentDate } }
     });
 };
