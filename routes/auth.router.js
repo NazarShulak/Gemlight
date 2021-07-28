@@ -10,6 +10,6 @@ const {
     }
 } = require('../middlewares');
 
-router.post('/local', userBodyCheck, checkUserLogin, checkUserPasswordValidity, checkIfUserLogged, loginUser);
+router.post('/local', userBodyCheck, checkUserLogin, checkUserPasswordValidity, loginUser);
 
 module.exports = router;
