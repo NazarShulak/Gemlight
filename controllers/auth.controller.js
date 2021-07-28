@@ -21,11 +21,13 @@ module.exports = {
             // });
             redisClient.set(user_id, { ...tokenPair }, 'EX', 60 , (err) => {
                 if (err) {
-                    res.json('Something went wrong((')
+                    res.json('Something went wrong((');
+                    return
                 }
                 redisClient.get(user_id, (err, data) => {
                     if (!err) {
                         res.json(data);
+                        return
                     }
                     res.json(err);
                 })
