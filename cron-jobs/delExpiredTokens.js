@@ -11,7 +11,7 @@ module.exports = async () => {
     console.log(Date.parse(currentDate));
     console.log('**here**');
     await AuthModel.destroy({
-        where: { expireAt: { [Op.lt]: Date.parse(currentDate) } }
+        where: { expireAt: { $lt: currentDate } }
     });
     console.log('***SUCCESS****');
 };
