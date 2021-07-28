@@ -1,11 +1,11 @@
 const { constants: { AUTHORIZATION } } = require('../constants');
 const { AuthModel } = require('../database');
-const { redisClient } = require('../database/connection');
+const { asyncRedis } = require('../database/connection');
 const { ErrorHandler } = require("../error");
 const { authService } = require('../services');
 const { promisify } = require('util');
 
-const asyncRedis = promisify(redisClient.get).bind(redisClient);
+// const asyncRedis = promisify(redisClient.get).bind(redisClient);
 
 module.exports = {
     loginUser: async (req, res, next) => {

@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
-const redis = require('redis');
+const asyncRedis = require('async-redis');
 
 const { constants: { DB_PASSWORD, DB_CONNECTION_STRING, DB_NAME, DB_USER } } = require('../constants');
 
-const client = redis.createClient();
+const client = asyncRedis.createClient();
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     host: DB_CONNECTION_STRING,
@@ -12,6 +12,6 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
 });
 
 module.exports = {
-    redisClient:client,
+    asyncRedis: client,
     sequelize
 };
