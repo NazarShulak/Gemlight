@@ -3,7 +3,9 @@ const { AuthModel } = require('../database');
 module.exports = async () => {
     const currentDate = new Date();
 
+    console.log(currentDate);
     await AuthModel.destroy({
-        where: { expireAt: { [Option.lt]: currentDate } }
+        where: { expireAt: { [Op.lt]: currentDate } }
     });
+    console.log('***SUCCESS****');
 };
