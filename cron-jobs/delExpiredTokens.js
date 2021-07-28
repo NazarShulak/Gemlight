@@ -1,14 +1,18 @@
 const { AuthModel } = require('../database');
 
 module.exports = async () => {
-    const currentDate = new Date();
-    const date = currentDate.format("yyyy-mm-dd");
+    const date = new Date();
 
+    const curr_date = date.getDate();
+    const curr_month = date.getMonth();
+    const curr_year = date.getFullYear();
 
+    const currentDate = [curr_year, curr_month, curr_date].join('-');
 
-    console.log(date.getDate());
+    console.log(currentDate.getDate());
+    console.log(currentDate);
     await AuthModel.destroy({
-        where: { expireAt: { [Op.lt]: date.getDate() } }
+        where: { expireAt: { [Op.lt]: currentDate.getDate() } }
     });
     console.log('***SUCCESS****');
 };
