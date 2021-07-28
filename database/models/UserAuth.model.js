@@ -15,7 +15,7 @@ const UserAuth = sequelize.define('Auth', {
         allowNullL: false
     },
     expireAt: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull:false
     }
 }, {
