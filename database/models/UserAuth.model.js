@@ -13,6 +13,10 @@ const UserAuth = sequelize.define('Auth', {
     userId: {
         type: Sequelize.INTEGER,
         allowNullL: false
+    },
+    expireAt: {
+        type: Sequelize.DATEONLY,
+        allowNull:false
     }
 }, {
     tableName: 'userAuth',
