@@ -5,7 +5,7 @@ const { ErrorHandler } = require("../error");
 const { authService } = require('../services');
 const { promisify } = require('util');
 
-// const asyncRedis = promisify(redisClient.get).bind(redisClient);
+const asyncRedis = promisify(redisClient.get).bind(redisClient);
 
 module.exports = {
     loginUser: async (req, res, next) => {
@@ -14,24 +14,13 @@ module.exports = {
             const { user_id } = req.user;
             const tokenPair = authService.generateTokens();
 
-            // await asyncRedis.set(`${user_id}`, { ...tokenPair }, 'EX', 60 * 60 * 24);
+            const newVar = await asyncRedis.set(user_id, { ...tokenPair }, 'EX', 60);
+            console.log(newVar);
             // const user = await AuthModel.create({
             //     userId: user_id, ...tokenPair,
             //     expireAt: date.setDate(date.getDate() + 1)
             // });
-            await redisClient.set(user_id, { ...tokenPair }, 'EX', 60 , async (err) => {
-                if (err) {
-                    res.json('Something went wrong((');
-                    return
-                }
-               await redisClient.get(user_id, (err, data) => {
-                    if (!err) {
-                        res.json(data);
-                        return
-                    }
-                    res.json(err);
-                })
-            })
+            const user = await asyncRedis.get(user_id);
 
             res.json(user);
         } catch (e) {
