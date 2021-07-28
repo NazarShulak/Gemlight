@@ -21,7 +21,7 @@ module.exports = {
             });
             // const user = await asyncRedis.get(user_id);
 
-            console.log(AuthModel.get({ where: { userId:user_id } }));
+            console.log(AuthModel.findOne({ where: { userId:user_id } }));
             res.json({ user });
             // res.json({ ...JSON.parse(user), user: req.user });
         } catch (e) {
