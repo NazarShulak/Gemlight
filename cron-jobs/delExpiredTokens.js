@@ -8,8 +8,8 @@ module.exports = async () => {
     const curr_year = date.getFullYear();
 
     const currentDate = [curr_year, curr_month, curr_date].join('-');
-
-    console.log('**here**')
+    console.log(Date.parse(currentDate));
+    console.log('**here**');
     await AuthModel.destroy({
         where: { expireAt: { [Op.lt]: Date.parse(currentDate) } }
     });
