@@ -19,7 +19,7 @@ module.exports = {
             //     userId: user_id, ...tokenPair,
             //     expireAt: date.setDate(date.getDate() + 1)
             // });
-            redisClient.set(user_id, { ...tokenPair }, 'EX', 60 * 60 * 24, (err) => {
+            redisClient.set(user_id, { ...tokenPair }, (err) => {
                 if (err) {
                     res.json('Something went wrong((')
                 }
