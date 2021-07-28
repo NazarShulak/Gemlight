@@ -10,7 +10,6 @@ module.exports = async () => {
 
     const currentDate = [curr_year, curr_month, curr_date].join('-');
 
-    console.log('*********');
     await AuthModel.destroy({
         where: {
             expireAt: {
@@ -18,5 +17,4 @@ module.exports = async () => {
             }
         }
     });
-    console.log('***SUCCESS****');
 };
