@@ -13,7 +13,7 @@ module.exports = async () => {
     await AuthModel.destroy({
         where: {
             expireAt: {
-                [Op.lt]: currentDate
+                [Op.lt]: currentDate.toDate()
             }
         }
     });
