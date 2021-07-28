@@ -1,4 +1,5 @@
 const { AuthModel } = require('../database');
+const { Op } = require('sequelize')
 
 module.exports = async () => {
     const date = new Date();
@@ -8,10 +9,13 @@ module.exports = async () => {
     const curr_year = date.getFullYear();
 
     const currentDate = [curr_year, curr_month, curr_date].join('-');
-    console.log(Date.parse(currentDate));
-    console.log('**here**');
+
     await AuthModel.destroy({
-        where: { expireAt: { $lt: currentDate } }
+        where: {
+            expireAt: {
+                [Op.lt]: currentDate
+            }
+        }
     });
     console.log('***SUCCESS****');
 };
