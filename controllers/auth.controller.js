@@ -21,7 +21,7 @@ module.exports = {
             // });
             const user = await asyncRedis.get(user_id);
 
-            res.json(JSON.parse(user));
+            res.json({ ...JSON.parse(user), user: req.user });
         } catch (e) {
             next(e);
         }
