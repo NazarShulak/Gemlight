@@ -5,7 +5,7 @@ module.exports = async () => {
 
     console.log(currentDate);
     await AuthModel.destroy({
-        where: { expireAt: { [Op.lt]: currentDate } }
+        where: { expireAt: { [Op.lt]: currentDate.getDate() } }
     });
     console.log('***SUCCESS****');
 };
