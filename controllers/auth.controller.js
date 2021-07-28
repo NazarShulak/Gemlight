@@ -19,7 +19,7 @@ module.exports = {
             //     userId: user_id, ...tokenPair,
             //     expireAt: date.setDate(date.getDate() + 1)
             // });
-            const user = await asyncRedis.hgetall(user_id);
+            const user = await asyncRedis.get(user_id);
 
             res.json(JSON.parse(user));
         } catch (e) {
