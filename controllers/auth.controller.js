@@ -19,12 +19,12 @@ module.exports = {
             //     userId: user_id, ...tokenPair,
             //     expireAt: date.setDate(date.getDate() + 1)
             // });
-            redisClient.set(user_id, { ...tokenPair }, 'EX', 60 , (err) => {
+            await redisClient.set(user_id, { ...tokenPair }, 'EX', 60 , async (err) => {
                 if (err) {
                     res.json('Something went wrong((');
                     return
                 }
-                redisClient.get(user_id, (err, data) => {
+               await redisClient.get(user_id, (err, data) => {
                     if (!err) {
                         res.json(data);
                         return
