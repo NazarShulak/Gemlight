@@ -50,7 +50,7 @@ module.exports = {
             const { user_id } = req.body;
             await ProductModel.destroy({ where: { userId: user_id } });
 
-            res.json('Successfully deleted');
+            res.status(204).json('Successfully deleted');
         } catch (e) {
             next(e);
         }
@@ -61,7 +61,7 @@ module.exports = {
             const { ...product } = req.body;
             const createdProduct = await ProductModel.create({ ...product });
 
-            res.json(createdProduct);
+            res.status(201).json(createdProduct);
         } catch (e) {
             next(e);
         }

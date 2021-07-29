@@ -21,3 +21,12 @@ describe("GET /api/product ", () => {
 //         expect(response.statusCode).toBe(200);
 //     });
 // });
+
+describe("DELETE /api/product ", () => {
+    test("It should respond with status code 204", async () => {
+        const response = await request(app).delete("/api/product");
+
+        expect(response.body).toBe('Successfully deleted');
+        expect(response.statusCode).toBe(204);
+    });
+});

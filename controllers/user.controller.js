@@ -19,7 +19,7 @@ module.exports = {
 
             const createdUser = await UserModel.create({ password: hashedPassword, ...other });
 
-            res.json(createdUser);
+            res.status(201).json(createdUser);
         } catch (e) {
             next(e);
         }
@@ -31,7 +31,7 @@ module.exports = {
 
             await UserModel.destroy({ where: { user_id } });
 
-            res.json('User successfully deleted');
+            res.status(204).json('User successfully deleted');
         } catch (e) {
             next(e);
         }

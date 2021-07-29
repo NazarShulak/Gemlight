@@ -13,18 +13,18 @@ describe("GET /api/users ", () => {
 
 describe("POST /api/users ", () => {
 
-    // describe('given data is correct', () => {
-    //     test('It should return user object with status of 200', async () => {
-    //         const response = await request(app).post("/api/users").send({
-    //             name: 'jes',
-    //             age: 20,
-    //             email: 'jet@est.co',
-    //             password: 'jest12345'
-    //         });
-    //
-    //         expect(response.statusCode).toBe(200);
-    //     });
-    // });
+    describe('given data is correct', () => {
+        test('It should return user object with status of 201', async () => {
+            const response = await request(app).post("/api/users").send({
+                name: 'jes',
+                age: 20,
+                email: 'jet@est.co',
+                password: 'jest12345'
+            });
+
+            expect(response.statusCode).toBe(201);
+        });
+    });
 
     describe('When given data is duplicate', () => {
         test('Should respond with status code of 409', async () => {
@@ -52,11 +52,11 @@ describe("POST /api/users ", () => {
 });
 
 describe("DELETE /api/users/:user_id ", () => {
-    test("It should respond with status code of 200", async () => {
+    test("It should respond with status code of 204", async () => {
         const response = await request(app).delete("/api/users/1").set('Authorization','');
 
         expect(response.body).toBe('User successfully deleted');
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(204);
     });
 });
 
