@@ -51,7 +51,7 @@ module.exports = {
     checkAccessToken: async (req, res, next) => {
         try {
             const token = req.get(AUTHORIZATION);
-            const {user_id} = req.body;
+            const { user_id } = req.params;
 
             if (!token) {
                 throw new ErrorHandler(BAD_REQUEST, 'No token', 4001);
