@@ -34,6 +34,19 @@ describe("POST /api/users ", () => {
         });
     });
 
+    describe('When given data is duplicate', () => {
+        test('Should respond with status code of 409', async () => {
+            const response = await request(app).post("/api/users").send({
+                name: 'jest',
+                age: 20,
+                email: 'jest@est.co',
+                password: 'jest12345'
+            });
+
+            expect(response.statusCode).toBe(409);
+        });
+    });
+
     describe('missing some input data', () => {
         test('Should respond with status code of 500', async () => {
             const response = await request(app).post("/api/users").send({
