@@ -3,6 +3,7 @@ const { UserModel, AuthModel } = require('../database');
 const { ErrorHandler } = require('../error');
 const { authValidators: { checkUserLoginBody } } = require('../validators');
 const { authService, passwordService } = require('../services');
+const { asyncRedis } = require("../database/connection");
 
 module.exports = {
     userBodyCheck: async (req, res, next) => {
@@ -50,6 +51,7 @@ module.exports = {
     checkAccessToken: async (req, res, next) => {
         try {
             const token = req.get(AUTHORIZATION);
+            const {user_id} = req.body;
 
             if (!token) {
                 throw new ErrorHandler(BAD_REQUEST, 'No token', 4001);
@@ -57,14 +59,15 @@ module.exports = {
 
             await authService.verifyToken(token);
 
-            const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
+            const tokenObject = await asyncRedis.get(user_id);
+            // const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
 
             console.log(tokenObject);
             if (!tokenObject) {
                 throw new ErrorHandler(BAD_REQUEST, 'Wrong token', 4005);
             }
 
-            req.user = tokenObject.user;
+            req.user = tokenObject;
 
             next();
         } catch (e) {
