@@ -52,6 +52,7 @@ module.exports = {
         try {
             const token = req.get(AUTHORIZATION);
             const { user_id } = req.params;
+            console.log(user_id);
 
             if (!token) {
                 throw new ErrorHandler(BAD_REQUEST, 'No token', 4001);

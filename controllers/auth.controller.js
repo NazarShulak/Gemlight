@@ -20,7 +20,6 @@ module.exports = {
             // });
             const user = await asyncRedis.get(user_id);
 
-            console.log(user);
             // res.json(user);
             res.json({ ...JSON.parse(user), user: req.user });
         } catch (e) {
