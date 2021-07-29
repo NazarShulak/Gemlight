@@ -59,7 +59,7 @@ module.exports = {
 
             await authService.verifyToken(token);
 
-            const tokenObject = await asyncRedis.get(user_id);
+            const tokenObject = await asyncRedis.get(user_id+'');
             // const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
 
             console.log(tokenObject);
