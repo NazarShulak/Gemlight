@@ -52,7 +52,6 @@ module.exports = {
         try {
             const token = req.get(AUTHORIZATION);
             const { user_id } = req.params;
-            console.log(user_id);
 
             if (!token) {
                 throw new ErrorHandler(BAD_REQUEST, 'No token', 4001);
@@ -60,7 +59,7 @@ module.exports = {
 
             await authService.verifyToken(token);
 
-            const userWithTokens = await asyncRedis.get(user_id+'');
+            const userWithTokens = await asyncRedis.get(user_id);
             // const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
 
             if (!userWithTokens) {
