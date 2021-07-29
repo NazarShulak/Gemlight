@@ -6,9 +6,7 @@ describe("GET /api/users ", () => {
     test("It should respond with an array of users", async () => {
         const response = await request(app).get("/api/users");
         expect(response.body).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining({}
-                )]));
+            expect.arrayContaining([]));
         expect(response.statusCode).toBe(200);
     });
 });
@@ -55,7 +53,7 @@ describe("POST /api/users ", () => {
 
 describe("DELETE /api/users/:user_id ", () => {
     test("It should respond with status code of 200", async () => {
-        const response = await request(app).get("/api/users");
+        const response = await request(app).get("/api/users").set('Authorization','');
 
         expect(response.body).toBe('User successfully deleted');
         expect(response.statusCode).toBe(200);
