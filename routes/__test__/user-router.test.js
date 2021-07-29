@@ -34,7 +34,7 @@ describe("POST /api/users ", () => {
         });
     });
 
-    describe('missing some input data', async () => {
+    describe('missing some input data', () => {
         test('Should respond with status code of 400', async () => {
             const response = await request(app).post("/api/users").send({
                 name: 'jest-test',
