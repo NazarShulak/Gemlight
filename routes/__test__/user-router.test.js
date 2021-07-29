@@ -23,14 +23,13 @@ describe("POST /api/users ", () => {
     describe('given data is correct', () => {
         test('It should return user object with status of 200', async () => {
             const response = await request(app).post("/api/users").send({
-                name: 'jest',
+                name: 'jes',
                 age: 20,
-                email: 'jest@est.co',
+                email: 'jet@est.co',
                 password: 'jest12345'
             });
 
             expect(response.statusCode).toBe(200);
-            // expect(response.body).toContain({...response,user_id:expect(user_id).not.toBeUndefined})
         });
     });
 
