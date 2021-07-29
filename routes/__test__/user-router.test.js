@@ -53,7 +53,7 @@ describe("POST /api/users ", () => {
 
 describe("DELETE /api/users/:user_id ", () => {
     test("It should respond with status code of 200", async () => {
-        const response = await request(app).get("/api/users").set('Authorization','');
+        const response = await request(app).delete("/api/users/1").set('Authorization','');
 
         expect(response.body).toBe('User successfully deleted');
         expect(response.statusCode).toBe(200);
