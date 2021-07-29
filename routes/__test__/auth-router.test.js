@@ -8,8 +8,7 @@ describe("POST /auth/local ", () => {
             password: 'test12345'
         });
 
-        expect(response.body).toEqual(
-            expect.objectContaining({}));
+        expect(response.body).toEqual({});
         expect(response.statusCode).toBe(200);
     });
 });
