@@ -30,3 +30,12 @@ describe("DELETE /api/product ", () => {
         expect(response.statusCode).toBe(204);
     });
 });
+
+describe("GET /api/product/check/:name ", () => {
+    test("It should respond with status code 200", async () => {
+        const response = await request(app).get("/api/product/check/:name").send('car');
+
+        expect(response.body).toBe('Unique');
+        expect(response.statusCode).toBe(200);
+    });
+});
