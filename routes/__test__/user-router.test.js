@@ -1,6 +1,5 @@
 const request = require("supertest");
 const app = require("../../app");
-const { not } = require("joi");
 
 
 describe("GET /api/users ", () => {
@@ -8,12 +7,8 @@ describe("GET /api/users ", () => {
         const response = await request(app).get("/api/users");
         expect(response.body).toEqual(
             expect.arrayContaining([
-                expect.objectContaining({
-                    // user_id: 1,
-                    // name: 'test',
-                    // age: 23,
-                    // email: 'test@add.co'
-                })]))
+                expect.objectContaining({}
+                )]));
         expect(response.statusCode).toBe(200);
     });
 });
@@ -57,4 +52,13 @@ describe("POST /api/users ", () => {
         });
     });
 });
+
+// describe("DELETE /api/users/:user_id ", () => {
+//     test("It should respond with status code of", async () => {
+//         const response = await request(app).get("/api/users");
+//
+//         expect(response.statusCode).toBe(200);
+//     });
+// });
+
 

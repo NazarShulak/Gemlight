@@ -5,8 +5,7 @@ const {
     authMiddlewares: {
         userBodyCheck,
         checkUserLogin,
-        checkUserPasswordValidity,
-        checkIfUserLogged
+        checkUserPasswordValidity
     }
 } = require('../middlewares');
 

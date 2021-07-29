@@ -59,6 +59,7 @@ module.exports = {
 
             const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
 
+            console.log(tokenObject);
             if (!tokenObject) {
                 throw new ErrorHandler(BAD_REQUEST, 'Wrong token', 4005);
             }
@@ -71,22 +72,22 @@ module.exports = {
         }
     },
 
-    checkIfUserLogged: async (req, res, next) => {
-        try {
-            const { user: { user_id } } = req;
-
-            //?????
-            const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
-            // const logged = await redisClient.exists(user_id);
-
-            if (loggedUser) {
-                throw new ErrorHandler(BAD_REQUEST, 'You are logged', 4001);
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    }
+    // checkIfUserLogged: async (req, res, next) => {
+    //     try {
+    //         const { user: { user_id } } = req;
+    //
+    //         //?????
+    //         const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
+    //         // const logged = await redisClient.exists(user_id);
+    //
+    //         if (loggedUser) {
+    //             throw new ErrorHandler(BAD_REQUEST, 'You are logged', 4001);
+    //         }
+    //
+    //         next();
+    //     } catch (e) {
+    //         next(e);
+    //     }
+    // }
 };
 

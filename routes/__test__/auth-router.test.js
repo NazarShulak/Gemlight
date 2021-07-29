@@ -1,0 +1,17 @@
+const request = require("supertest");
+const app = require("../../app");
+
+describe("POST /auth/local ", () => {
+    test("It should respond with an object of user and status code 201", async () => {
+        const response = await request(app).post("/auth/local").send({
+            email:'',
+            password:''
+        });
+
+        expect(response.body).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({}
+                )]));
+        expect(response.statusCode).toBe(200);
+    });
+});

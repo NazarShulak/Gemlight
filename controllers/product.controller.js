@@ -35,7 +35,6 @@ module.exports = {
 
             const product = await ProductModel.findOne({ where: { title: name } });
 
-
             if (product) {
                 res.json('not unique');
             }
