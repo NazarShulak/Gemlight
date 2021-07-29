@@ -23,9 +23,9 @@ describe("POST /api/users ", () => {
     describe('given data is correct', () => {
         test('It should return user object with status of 200', async () => {
             const response = await request(app).post("/api/users").send({
-                name: 'jest-test',
+                name: 'jest',
                 age: 20,
-                email: 'jest@test.co',
+                email: 'jest@est.co',
                 password: 'jest12345'
             });
 
