@@ -53,12 +53,13 @@ describe("POST /api/users ", () => {
     });
 });
 
-// describe("DELETE /api/users/:user_id ", () => {
-//     test("It should respond with status code of", async () => {
-//         const response = await request(app).get("/api/users");
-//
-//         expect(response.statusCode).toBe(200);
-//     });
-// });
+describe("DELETE /api/users/:user_id ", () => {
+    test("It should respond with status code of 200", async () => {
+        const response = await request(app).get("/api/users");
+
+        expect(response.body).toBe('User successfully deleted');
+        expect(response.statusCode).toBe(200);
+    });
+});
 
 
