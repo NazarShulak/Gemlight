@@ -11,7 +11,7 @@ module.exports = {
         try {
             const date = new Date();
             const { user_id } = req.user;
-            const { tokenPair } = authService.generateTokens();
+            const  tokenPair = authService.generateTokens();
 
             console.log(tokenPair);
             // await asyncRedis.set(user_id + '', JSON.stringify(...tokenPair) + '', 'EX', 60);
@@ -20,7 +20,7 @@ module.exports = {
                 expireAt: date.setDate(date.getDate() + 1)
             });
             // const user = await asyncRedis.get(user_id);
-            console.log('here')
+
             res.json(user);
             // res.json({ ...JSON.parse(user), user: req.user });
         } catch (e) {
