@@ -22,7 +22,9 @@ describe("GET /api/product ", () => {
 
 describe("DELETE /api/product ", () => {
     test("It should respond with status code 204", async () => {
-        const response = await request(app).delete("/api/product").send('1');
+        const response = await request(app).delete("/api/product").send({
+            user_id: 1
+        });
 
         expect(response.body).toBe('Successfully deleted');
         expect(response.statusCode).toBe(204);
