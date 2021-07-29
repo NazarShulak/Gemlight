@@ -59,15 +59,15 @@ module.exports = {
 
             await authService.verifyToken(token);
 
-            const tokenObject = await asyncRedis.get(user_id+'');
+            const userWithTokens = await asyncRedis.get(user_id+'');
             // const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
 
-            console.log(tokenObject);
-            if (!tokenObject) {
+            console.log(userWithTokens.accessToken);
+            if (!userWithTokens) {
                 throw new ErrorHandler(BAD_REQUEST, 'Wrong token', 4005);
             }
 
-            req.user = tokenObject;
+            req.user = userWithTokens.user;
 
             next();
         } catch (e) {
