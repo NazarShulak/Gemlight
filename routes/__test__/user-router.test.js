@@ -30,12 +30,12 @@ describe("POST /api/users ", () => {
             });
 
             expect(response.statusCode).toBe(200);
-            expect(response.body).toHaveProperty(['user_id', 'name', 'age', 'email', 'password']);
+            expect(response.body).toHaveProperty('user_id');
         });
     });
 
     describe('missing some input data', () => {
-        test('Should respond with status code of 400', async () => {
+        test('Should respond with status code of 500', async () => {
             const response = await request(app).post("/api/users").send({
                 name: 'jest-test',
                 age: 20,
