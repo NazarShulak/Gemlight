@@ -5,7 +5,6 @@ const { ErrorHandler } = require("../error");
 const { authService } = require('../services');
 const { promisify } = require('util');
 
-// const asyncRedis = promisify(redisClient.get).bind(redisClient);
 
 module.exports = {
     loginUser: async (req, res, next) => {
