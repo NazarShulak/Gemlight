@@ -25,7 +25,7 @@ module.exports = {
     },
 
     verifyToken: async (token, tokenType = ACCESS) => {
-        const secretWord = tokenType === ACCESS ? ACCESS_TOKEN : REFRESH_TOKEN;
+        const secretWord = tokenType === ACCESS ? ACCESS_TOKEN+'' : REFRESH_TOKEN+'';
         const verifyPromise = promisify(jwt.verify);
 
 
