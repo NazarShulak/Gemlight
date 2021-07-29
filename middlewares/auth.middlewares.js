@@ -60,7 +60,7 @@ module.exports = {
             await authService.verifyToken(token);
 
             // const userWithTokens = await asyncRedis.get(user_id)
-            const tokenObject = await AuthModel.find({where:{accessToken:token}})
+            const tokenObject = await AuthModel.findOne({where:{accessToken:token}})
 
             console.log(tokenObject);
             if (!tokenObject) {
