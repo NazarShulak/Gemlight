@@ -61,7 +61,6 @@ module.exports = {
 
             const userWithTokens = await asyncRedis.get(user_id)
             // const tokenObject = await AuthModel.findOne({ where: { accessToken: token } });
-            console.log(typeof user_id);
             console.log(userWithTokens);
             if (!userWithTokens) {
                 throw new ErrorHandler(BAD_REQUEST, 'Wrong token', 4005);
