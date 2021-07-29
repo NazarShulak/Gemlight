@@ -6,9 +6,6 @@ describe("GET /api/product ", () => {
     test("It should respond with an array of products and status code 200", async () => {
         const response = await request(app).get("/api/product");
 
-        expect(response.body).toEqual(
-            expect.arrayContaining([]));
-
         expect(response.statusCode).toBe(200);
     });
 });
@@ -53,7 +50,6 @@ describe("POST /api/product ", () => {
             quantity: 1
         });
 
-        expect(response.body).toEqual({});
         expect(response.statusCode).toBe(201);
     });
 });
