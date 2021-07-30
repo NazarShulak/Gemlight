@@ -15,6 +15,16 @@ module.exports = () => {
             });
 
             expect(response.statusCode).toBe(201);
+            expect(response.body).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    productId: 100,
+                    userId: 1,
+                    title: 'book',
+                    description: 'Old book',
+                    price: 1000,
+                    quantity: 1
+                }))
         });
     });
 
@@ -23,6 +33,19 @@ module.exports = () => {
             const response = await request(app).get("/api/product");
 
             expect(response.statusCode).toBe(200);
+            expect(response.body).toEqual(
+                expect.arrayContaining([
+                    expect.objectContaining({
+                        id: expect.any(Number),
+                        productId: expect.any(Number),
+                        userId: expect.any(Number),
+                        title: expect.any(String),
+                        description: expect.any(String),
+                        price: expect.any(Number),
+                        quantity: expect.any(Number)
+                    })
+                ])
+            )
         });
     });
 
@@ -31,9 +54,18 @@ module.exports = () => {
         test("It should respond with an object of product and status code of 200", async () => {
             const response = await request(app).get("/api/product/100");
 
-            // expect(response.body).toContain({});
-
             expect(response.statusCode).toBe(200);
+            expect(response.body).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    productId: expect.any(Number),
+                    userId: expect.any(Number),
+                    title: expect.any(String),
+                    description: expect.any(String),
+                    price: expect.any(Number),
+                    quantity: expect.any(Number)
+                })
+            );
         });
     });
 
@@ -49,6 +81,17 @@ module.exports = () => {
             });
 
             expect(response.statusCode).toBe(201);
+            expect(response.body).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    productId: 100,
+                    userId: 1,
+                    title: 'updated book',
+                    description: 'Old book',
+                    price: 100,
+                    quantity: 2
+                })
+            )
         });
     });
 
@@ -70,6 +113,14 @@ module.exports = () => {
             });
 
             expect(response.statusCode).toBe(201);
+            expect(response.body).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    userId: 1,
+                    productId: 100,
+                    reviewBody: expect.any(String)
+                })
+            )
         });
     });
 
@@ -78,6 +129,14 @@ module.exports = () => {
             const response = await request(app).get("/api/product/100/review");
 
             expect(response.statusCode).toBe(200);
+            expect(response.body).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    userId: expect.any(Number),
+                    productId: 100,
+                    reviewBody: expect.any(String)
+                })
+            )
         });
     });
 
