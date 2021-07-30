@@ -119,12 +119,14 @@ module.exports = () => {
 
             expect(response.statusCode).toBe(200);
             expect(response.body).toEqual(
-                expect.objectContaining({
-                    id: expect.any(Number),
-                    userId: expect.any(Number),
-                    productId: 100,
-                    reviewBody: expect.any(String)
-                })
+                expect.arrayContaining([
+                    expect.objectContaining({
+                        id: expect.any(Number),
+                        userId: expect.any(Number),
+                        productId: 100,
+                        reviewBody: expect.any(String)
+                    })
+                ])
             )
         });
     });
