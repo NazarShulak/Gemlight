@@ -29,7 +29,9 @@ module.exports = () => {
 
     describe("GET /api/product/:id ", () => {
         test("It should respond with an object of product and status code 200", async () => {
-            const response = await request(app).get("/api/product/:id").send('100');
+            const response = await request(app).get("/api/product/:id").send({
+                productId:100
+            });
 
             // expect(response.body).toContain({});
 
@@ -39,7 +41,9 @@ module.exports = () => {
 
     describe("DELETE /api/product ", () => {
         test("It should respond with status code 204", async () => {
-            const response = await request(app).delete("/api/product").send('100');
+            const response = await request(app).delete("/api/product").send({
+                userId:1,
+            });
 
             expect(response.statusCode).toBe(204);
         });
