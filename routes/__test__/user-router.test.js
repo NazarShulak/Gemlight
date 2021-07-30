@@ -14,7 +14,7 @@ describe("POST /api/users ", () => {
                 password: 'jest12345'
             });
 
-            expect(response.statusCode).toBe(201);
+            expect(response.statusCode).toEqual(201);
         });
     });
 
@@ -57,7 +57,6 @@ describe("DELETE /api/users/:user_id ", () => {
     test("It should respond with status code of 204", async () => {
         const response = await request(app).delete("/api/users/1").set('Authorization','');
 
-        expect(response.body).toBe('User successfully deleted');
         expect(response.statusCode).toBe(204);
     });
 });
