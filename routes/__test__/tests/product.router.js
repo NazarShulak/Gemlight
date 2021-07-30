@@ -19,7 +19,7 @@ module.exports = () => {
     });
 
     describe("GET /api/product ", () => {
-        test("It should respond with an array of products and status code 200", async () => {
+        test("It should respond with an array of products and status code of 200", async () => {
             const response = await request(app).get("/api/product");
 
             expect(response.statusCode).toBe(200);
@@ -28,7 +28,7 @@ module.exports = () => {
 
 
     describe("GET /api/product/:id ", () => {
-        test("It should respond with an object of product and status code 200", async () => {
+        test("It should respond with an object of product and status code of 200", async () => {
             const response = await request(app).get("/api/product/100");
 
             // expect(response.body).toContain({});
@@ -37,18 +37,24 @@ module.exports = () => {
         });
     });
 
-    describe("DELETE /api/product ", () => {
-        test("It should respond with status code 204", async () => {
-            const response = await request(app).delete("/api/product").send({
+    describe("PUT /api/product/:id ", () => {
+        test("It should respond with an object of updated product and status code of 201", async () => {
+            const response = await request(app).put("/api/product/100").send({
+                productId: 100,
                 userId: 1,
+                title: 'updated book',
+                description: 'Old book',
+                price: 100,
+                quantity: 2
             });
 
-            expect(response.statusCode).toBe(204);
+            expect(response.statusCode).toBe(201);
         });
     });
 
+
     describe("GET /api/product/check/:name ", () => {
-        test("It should respond with status code 200", async () => {
+        test("It should respond with status code of 200", async () => {
             const response = await request(app).get("/api/product/check/:name").send('car');
 
             expect(response.body).toBe('Unique');
@@ -57,7 +63,7 @@ module.exports = () => {
     });
 
     describe("POST /api/product/:id/review ", () => {
-        test("It should respond with object of reviews and status code of 201", async () => {
+        test("It should respond with object of review and status code of 201", async () => {
             const response = await request(app).post("/api/product/100/review").send({
                 userId: 1,
                 reviewBody: 'Very nice ancient book'
@@ -72,6 +78,16 @@ module.exports = () => {
             const response = await request(app).get("/api/product/100/review");
 
             expect(response.statusCode).toBe(200);
+        });
+    });
+
+    describe("DELETE /api/product ", () => {
+        test("It should respond with status code 204", async () => {
+            const response = await request(app).delete("/api/product").send({
+                userId: 1,
+            });
+
+            expect(response.statusCode).toBe(204);
         });
     });
 };

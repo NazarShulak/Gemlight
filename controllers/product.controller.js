@@ -72,9 +72,9 @@ module.exports = {
             const { id } = req.params;
             const { updatedProduct } = req.body;
 
-            await ProductModel.update({ ...updatedProduct }, { where: { productId: id } });
+            await ProductModel.update({ ...updatedProduct, productId: id }, { where: { productId: id } });
 
-            res.json('updated');
+            res.status(201).json('updated');
         } catch (e) {
             next(e);
         }
