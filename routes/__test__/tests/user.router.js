@@ -69,32 +69,33 @@ module.exports = () => {
             });
         });
 
-        describe("GET /api/users ", () => {
-            test("It should respond with an array of users", async () => {
-                const response = await request(app).get("/api/users");
+    });
 
-                expect(response.body).toEqual(
-                    expect.arrayContaining([
-                        expect.objectContaining({
-                            user_id: expect.any(Number),
-                            name: expect.any(String),
-                            age: expect.any(Number),
-                            email: expect.any(String),
-                            password: expect.any(String)
-                        })
-                    ])
-                );
+    describe("GET /api/users ", () => {
+        test("It should respond with an array of users", async () => {
+            const response = await request(app).get("/api/users");
 
-                expect(response.statusCode).toBe(200);
-            });
+            expect(response.body).toEqual(
+                expect.arrayContaining([
+                    expect.objectContaining({
+                        user_id: expect.any(Number),
+                        name: expect.any(String),
+                        age: expect.any(Number),
+                        email: expect.any(String),
+                        password: expect.any(String)
+                    })
+                ])
+            );
+
+            expect(response.statusCode).toBe(200);
         });
+    });
 
-        // describe("DELETE /api/users/:user_id ", () => {
-        //     test("It should respond with status code of 204", async () => {
-        //         const response = await request(app).delete("/api/users/1").set('Authorization', '');
-        //
-        //         expect(response.statusCode).toBe(204);
-        //     });
-        // });
-    })
-}
+    // describe("DELETE /api/users/:user_id ", () => {
+    //     test("It should respond with status code of 204", async () => {
+    //         const response = await request(app).delete("/api/users/1").set('Authorization', '');
+    //
+    //         expect(response.statusCode).toBe(204);
+    //     });
+    // });
+};
