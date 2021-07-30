@@ -21,10 +21,10 @@ module.exports = () => {
         describe('When given data is duplicate', () => {
             test('Should respond with status code of 409', async () => {
                 const response = await request(app).post("/api/users").send({
-                    name: 'jest',
+                    name: 'test',
                     age: 20,
-                    email: 'jest@est.co',
-                    password: 'jest12345'
+                    email: 'test@test.co',
+                    password: 'test12345'
                 });
 
                 expect(response.statusCode).toBe(409);
@@ -34,7 +34,7 @@ module.exports = () => {
         describe('missing some input data', () => {
             test('Should respond with status code of 500', async () => {
                 const response = await request(app).post("/api/users").send({
-                    name: 'jest-test',
+                    name: 'test',
                     age: 20,
                 });
 
