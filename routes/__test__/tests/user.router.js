@@ -8,10 +8,10 @@ module.exports = () => {
         describe('given data is correct', () => {
             test('It should return user object with status of 201', async () => {
                 const response = await request(app).post("/api/users").send({
-                    "name": "test",
-                    "age": 20,
-                    "email": "test@test.co",
-                    "password": "test"
+                    name: 'test',
+                    age: 20,
+                    email: 'test@test.co',
+                    password: 'test'
                 });
 
                 expect(response.statusCode).toBe(201);
