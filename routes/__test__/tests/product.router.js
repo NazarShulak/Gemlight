@@ -40,7 +40,7 @@ module.exports = () => {
     describe("DELETE /api/product ", () => {
         test("It should respond with status code 204", async () => {
             const response = await request(app).delete("/api/product").send({
-                userId:1,
+                userId: 1,
             });
 
             expect(response.statusCode).toBe(204);
@@ -52,6 +52,25 @@ module.exports = () => {
             const response = await request(app).get("/api/product/check/:name").send('car');
 
             expect(response.body).toBe('Unique');
+            expect(response.statusCode).toBe(200);
+        });
+    });
+
+    describe("POST /api/product/:id/review ", () => {
+        test("It should respond with object of reviews and status code of 201", async () => {
+            const response = await request(app).post("/api/product/100/reviews").send({
+                userId: 1,
+                reviewBody: 'Very nice ancient book'
+            });
+
+            expect(response.statusCode).toBe(200);
+        });
+    });
+
+    describe("GET /api/product/:id/review ", () => {
+        test("It should respond with array of reviews and status code of 201", async () => {
+            const response = await request(app).get("/api/product/100/reviews");
+
             expect(response.statusCode).toBe(200);
         });
     });
