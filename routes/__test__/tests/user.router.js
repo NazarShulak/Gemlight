@@ -24,6 +24,24 @@ module.exports = () => {
                 });
             });
 
+            test('It should return second user object with status of 201', async () => {
+                const response = await request(app).post("/api/users").send({
+                    name: 'test2',
+                    age: 20,
+                    email: 'test2@test.co',
+                    password: 'test12345'
+                });
+
+                expect(response.statusCode).toBe(201);
+                expect(response.body).toMatchSnapshot({
+                    user_id: expect.any(Number),
+                    name: 'test2',
+                    age: 20,
+                    email: 'test2@test.co',
+                    password: expect.any(String)
+                });
+            });
+
             describe('When given data is duplicate', () => {
                 test('Should respond with status code of 409', async () => {
                     const response = await request(app).post("/api/users").send({
