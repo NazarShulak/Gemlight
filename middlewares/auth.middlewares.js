@@ -1,4 +1,7 @@
-const { constants: { AUTHORIZATION }, errorCodesEnum: { CONFLICT, BAD_REQUEST } } = require('../constants');
+const {
+    constants: { AUTHORIZATION },
+    responseCodesEnum: { CONFLICT, BAD_REQUEST, UNAUTHORIZED }
+} = require('../constants');
 const { UserModel, AuthModel } = require('../database');
 const { ErrorHandler } = require('../error');
 const { authValidators: { checkUserLoginBody } } = require('../validators');
@@ -60,7 +63,7 @@ module.exports = {
             await authService.verifyToken(token);
 
             // const userWithTokens = await asyncRedis.get(user_id)
-            const tokenObject = await AuthModel.findOne({where:{accessToken:token}})
+            const tokenObject = await AuthModel.findOne({ where: { accessToken: token } })
 
             console.log(tokenObject);
             if (!tokenObject) {
@@ -75,22 +78,21 @@ module.exports = {
         }
     },
 
-    // checkIfUserLogged: async (req, res, next) => {
-    //     try {
-    //         const { user: { user_id } } = req;
-    //
-    //         //?????
-    //         const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
-    //         // const logged = await redisClient.exists(user_id);
-    //
-    //         if (loggedUser) {
-    //             throw new ErrorHandler(BAD_REQUEST, 'You are logged', 4001);
-    //         }
-    //
-    //         next();
-    //     } catch (e) {
-    //         next(e);
-    //     }
-    // }
+    checkIfUserLogged: async (req, res, next) => {
+        try {
+            const { user_id, ...data } = req.body;
+
+            const loggedUser = await AuthModel.findOne({ where: { userId: user_id } });
+            // const logged = await redisClient.exists(user_id);
+
+            if (!loggedUser) {
+                throw new ErrorHandler(UNAUTHORIZED, 'You are not logged', 4010);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
 };
 

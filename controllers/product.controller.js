@@ -1,4 +1,5 @@
 const { ProductModel, ReviewModel } = require('../database');
+const { responseCodesEnum: { CREATED, UPDATED, NO_CONTENT } } = require('../constants');
 
 
 module.exports = {
@@ -50,7 +51,7 @@ module.exports = {
             const { userId } = req.body;
             await ProductModel.destroy({ where: { userId } });
 
-            res.status(204).json('Successfully deleted');
+            res.status(NO_CONTENT).json('Successfully deleted');
         } catch (e) {
             next(e);
         }
@@ -61,7 +62,7 @@ module.exports = {
             const { ...product } = req.body;
             const createdProduct = await ProductModel.create({ ...product });
 
-            res.status(201).json(createdProduct);
+            res.status(CREATED).json(createdProduct);
         } catch (e) {
             next(e);
         }
@@ -74,7 +75,7 @@ module.exports = {
 
             await ProductModel.update({ ...updatedProduct, productId: id }, { where: { productId: id } });
 
-            res.status(201).json('updated');
+            res.status(UPDATED).json('updated');
         } catch (e) {
             next(e);
         }
@@ -86,7 +87,7 @@ module.exports = {
 
             const reviewObject = await ReviewModel.create({ ...review, productId: req.params.id });
 
-            res.status(201).json(reviewObject);
+            res.status(CREATED).json(reviewObject);
         } catch (e) {
             next(e);
         }
