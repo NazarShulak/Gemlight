@@ -29,9 +29,7 @@ module.exports = () => {
 
     describe("GET /api/product/:id ", () => {
         test("It should respond with an object of product and status code 200", async () => {
-            const response = await request(app).get("/api/product/:id").send({
-                productId:100
-            });
+            const response = await request(app).get("/api/product/100");
 
             // expect(response.body).toContain({});
 
