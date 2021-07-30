@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { ErrorHandler } = require("../error");
-const { errorCodesEnum: { BAD_REQUEST } } = require('../constants');
+const { responseCodesEnum: { BAD_REQUEST } } = require('../constants');
 module.exports = {
     compare: async (hashedPassword, password) => {
         const isPasswordMatched = await bcrypt.compare(password, hashedPassword);
