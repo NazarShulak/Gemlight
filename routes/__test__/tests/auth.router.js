@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../../app");
+const app = require("../../../app");
 
 module.exports = () => {
     describe("POST /auth/local ", () => {
@@ -9,8 +9,8 @@ module.exports = () => {
                 password: 'test12345'
             });
 
-            expect(response.body).toEqual({});
             expect(response.statusCode).toBe(200);
+            expect(response.body).toContain("user_id");
         });
     });
 };

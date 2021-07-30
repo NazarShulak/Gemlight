@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../../app");
+const app = require("../../../app");
 
 
 module.exports = () => {
@@ -14,7 +14,7 @@ module.exports = () => {
                     password: 'test'
                 });
 
-                expect(response.statusCode).toEqual(201);
+                expect(response.statusCode).toBe(201);
             });
         });
 
@@ -53,11 +53,11 @@ module.exports = () => {
         });
     });
 
-    describe("DELETE /api/users/:user_id ", () => {
-        test("It should respond with status code of 204", async () => {
-            const response = await request(app).delete("/api/users/1").set('Authorization', '');
-
-            expect(response.statusCode).toBe(204);
-        });
-    });
+    // describe("DELETE /api/users/:user_id ", () => {
+    //     test("It should respond with status code of 204", async () => {
+    //         const response = await request(app).delete("/api/users/1").set('Authorization', '');
+    //
+    //         expect(response.statusCode).toBe(204);
+    //     });
+    // });
 };
