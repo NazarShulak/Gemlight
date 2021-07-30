@@ -16,7 +16,7 @@ module.exports = () => {
                     userId:expect.any(Number),
                     accessToken:expect.any(String),
                     refreshToken:expect.any(String),
-                    expireAt:expect.any(Date)
+                    expireAt:expect.any(Number)
                 })
             )
         });
