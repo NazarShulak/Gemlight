@@ -81,17 +81,6 @@ module.exports = () => {
             });
 
             expect(response.statusCode).toBe(201);
-            expect(response.body).toEqual(
-                expect.objectContaining({
-                    id: expect.any(Number),
-                    productId: 100,
-                    userId: 1,
-                    title: 'updated book',
-                    description: 'Old book',
-                    price: 100,
-                    quantity: 2
-                })
-            )
         });
     });
 
@@ -117,7 +106,7 @@ module.exports = () => {
                 expect.objectContaining({
                     id: expect.any(Number),
                     userId: 1,
-                    productId: 100,
+                    productId: '100',
                     reviewBody: expect.any(String)
                 })
             )
