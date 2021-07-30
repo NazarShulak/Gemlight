@@ -10,6 +10,15 @@ module.exports = () => {
             });
 
             expect(response.statusCode).toBe(200);
+            expect(response.body).toEqual(
+                expect.objectContaining({
+                    id:expect.any(Number),
+                    userId:expect.any(Number),
+                    accessToken:expect.any(String),
+                    refreshToken:expect.any(String),
+                    expireAt:expect.any(Date)
+                })
+            )
         });
     });
 };

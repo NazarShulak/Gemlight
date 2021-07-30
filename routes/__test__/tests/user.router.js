@@ -15,13 +15,14 @@ module.exports = () => {
                 });
 
                 expect(response.statusCode).toBe(201);
-                expect(response.body).toMatchSnapshot({
-                    user_id: expect.any(Number),
-                    name: 'test',
-                    age: 20,
-                    email: 'test@test.co',
-                    password: expect.any(String)
-                });
+                expect(response.body).toEqual(
+                    expect.objectContaining({
+                        user_id: expect.any(Number),
+                        name: 'test',
+                        age: 20,
+                        email: 'test@test.co',
+                        password: expect.any(String)
+                    }));
             });
 
             test('It should return second user object with status of 201', async () => {
@@ -33,13 +34,14 @@ module.exports = () => {
                 });
 
                 expect(response.statusCode).toBe(201);
-                expect(response.body).toMatchSnapshot({
-                    user_id: expect.any(Number),
-                    name: 'test2',
-                    age: 20,
-                    email: 'test2@test.co',
-                    password: expect.any(String)
-                });
+                expect(response.body).toEqual(
+                    expect.objectContaining({
+                        user_id: expect.any(Number),
+                        name: 'test2',
+                        age: 20,
+                        email: 'test2@test.co',
+                        password: expect.any(String)
+                    }));
             });
 
             describe('When given data is duplicate', () => {
