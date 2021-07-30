@@ -2,15 +2,6 @@ const request = require("supertest");
 const app = require("../../app");
 
 
-describe("GET /api/users ", () => {
-    test("It should respond with an array of users", async () => {
-        const response = await request(app).get("/api/users");
-
-        expect(response.body).toEqual(
-            expect.arrayContaining([]));
-        expect(response.statusCode).toBe(200);
-    });
-});
 
 describe("POST /api/users ", () => {
 
@@ -49,6 +40,16 @@ describe("POST /api/users ", () => {
 
             expect(expect(response.statusCode).toBe(500));
         });
+    });
+});
+
+describe("GET /api/users ", () => {
+    test("It should respond with an array of users", async () => {
+        const response = await request(app).get("/api/users");
+
+        expect(response.body).toEqual(
+            expect.arrayContaining([]));
+        expect(response.statusCode).toBe(200);
     });
 });
 

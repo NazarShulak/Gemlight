@@ -2,14 +2,6 @@ const request = require("supertest");
 const app = require("../../app");
 const Sequelize = require("sequelize");
 
-describe("GET /api/product ", () => {
-    test("It should respond with an array of products and status code 200", async () => {
-        const response = await request(app).get("/api/product");
-
-        expect(response.statusCode).toBe(200);
-    });
-});
-
 describe("POST /api/product ", () => {
     test("It should respond with status code of 201", async () => {
         const response = await request(app).post("/api/product").send({
@@ -24,6 +16,15 @@ describe("POST /api/product ", () => {
         expect(response.statusCode).toBe(201);
     });
 });
+
+describe("GET /api/product ", () => {
+    test("It should respond with an array of products and status code 200", async () => {
+        const response = await request(app).get("/api/product");
+
+        expect(response.statusCode).toBe(200);
+    });
+});
+
 
 describe("GET /api/product/:id ", () => {
     test("It should respond with an object of product and status code 200", async () => {
