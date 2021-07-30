@@ -11,7 +11,7 @@ module.exports = () => {
                     name: 'test',
                     age: 20,
                     email: 'test@test.co',
-                    password: 'test'
+                    password: 'test12345'
                 });
 
                 expect(response.statusCode).toBe(201);

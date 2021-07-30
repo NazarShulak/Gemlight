@@ -5,7 +5,7 @@ module.exports = () => {
     describe("POST /auth/local ", () => {
         test("It should respond with an object of user and status code 200", async () => {
             const response = await request(app).post("/auth/local").send({
-                email: 'test@add.co',
+                email: 'test@test.co',
                 password: 'test12345'
             });
 
