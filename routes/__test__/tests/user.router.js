@@ -53,16 +53,13 @@ module.exports = () => {
             test("It should respond with an array of users", async () => {
                 const response = await request(app).get("/api/users");
 
-                expect(response.body).toEqual(
-                    expect.arrayContaining([
-                        expect.objectContaining({}).toMatchSnapshot({
-                            user_id: expect.any(Number),
-                            name: expect.any(String),
-                            age: expect.any(Number),
-                            email: expect.any(String),
-                            password: expect.any(String)
-                        })
-                    ]));
+                expect(response.body).toMatchSnapshot([{
+                    user_id: expect.any(Number),
+                    name: expect.any(String),
+                    age: expect.any(Number),
+                    email: expect.any(String),
+                    password: expect.any(String)
+                }]);
 
                 expect(response.statusCode).toBe(200);
             });
