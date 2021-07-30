@@ -86,7 +86,7 @@ module.exports = {
 
             const reviewObject = await ReviewModel.create({ ...review, productId: req.params.id });
 
-            res.json(reviewObject);
+            res.status(201).json(reviewObject);
         } catch (e) {
             next(e);
         }
