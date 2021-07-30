@@ -7,7 +7,7 @@ module.exports = () => {
         test("It should respond with status code of 201", async () => {
             const response = await request(app).post("/api/product").send({
                 productId: 100,
-                userId: 1,
+                userId: 3,
                 title: 'book',
                 description: 'Old book',
                 price: 1000,
