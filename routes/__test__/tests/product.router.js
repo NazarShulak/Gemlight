@@ -58,7 +58,7 @@ module.exports = () => {
 
     describe("POST /api/product/:id/review ", () => {
         test("It should respond with object of reviews and status code of 201", async () => {
-            const response = await request(app).post("/api/product/100/reviews").send({
+            const response = await request(app).post("/api/product/100/review").send({
                 userId: 1,
                 reviewBody: 'Very nice ancient book'
             });
@@ -69,7 +69,7 @@ module.exports = () => {
 
     describe("GET /api/product/:id/review ", () => {
         test("It should respond with array of reviews and status code of 201", async () => {
-            const response = await request(app).get("/api/product/100/reviews");
+            const response = await request(app).get("/api/product/100/review");
 
             expect(response.statusCode).toBe(200);
         });
