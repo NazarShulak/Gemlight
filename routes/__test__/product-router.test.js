@@ -10,15 +10,30 @@ describe("GET /api/product ", () => {
     });
 });
 
-// describe("GET /api/product/:id ", () => {
-//     test("It should respond with an object of product and status code 200", async () => {
-//         const response = await request(app).get("/api/product/100");
-//
-//         expect(response.body).toEqual({});
-//
-//         expect(response.statusCode).toBe(200);
-//     });
-// });
+describe("POST /api/product ", () => {
+    test("It should respond with status code of 201", async () => {
+        const response = await request(app).post("/api/product").send({
+            productId: 100,
+            userId: 1,
+            title: 'book',
+            description: 'Old book',
+            price: 1000,
+            quantity: 1
+        });
+
+        expect(response.statusCode).toBe(201);
+    });
+});
+
+describe("GET /api/product/:id ", () => {
+    test("It should respond with an object of product and status code 200", async () => {
+        const response = await request(app).get("/api/product/:id").send(100);
+
+        expect(response.body).toEqual({});
+
+        expect(response.statusCode).toBe(200);
+    });
+});
 
 describe("DELETE /api/product ", () => {
     test("It should respond with status code 204", async () => {
@@ -40,18 +55,3 @@ describe("GET /api/product/check/:name ", () => {
     });
 });
 
-describe("POST /api/product ", () => {
-    test("It should respond with status code of 201", async () => {
-        const response = await request(app).post("/api/product").send({
-
-            productId: 100,
-            userId: 1,
-            title: 'book',
-            description: 'Old book',
-            price: 1000,
-            quantity: 1
-        });
-
-        expect(response.statusCode).toBe(201);
-    });
-});
