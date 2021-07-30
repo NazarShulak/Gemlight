@@ -1,4 +1,4 @@
-const { errorCodesEnum: { CONFLICT, BAD_REQUEST } } = require('../constants');
+const { responseCodesEnum: { CONFLICT, BAD_REQUEST } } = require('../constants');
 const { ErrorHandler } = require('../error');
 const { ProductModel } = require('../database');
 const { productValidators: { checkProductForCreation, reviewBodyCheck } } = require('../validators');
