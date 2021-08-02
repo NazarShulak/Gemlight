@@ -58,13 +58,13 @@ module.exports = () => {
             });
 
             describe('missing some input data', () => {
-                test('Should respond with status code of 500', async () => {
+                test('Should respond with status code of 400', async () => {
                     const response = await request(app).post("/api/users").send({
                         name: 'test',
                         age: 20,
                     });
 
-                    expect(expect(response.statusCode).toBe(500));
+                    expect(expect(response.statusCode).toBe(400));
                 });
             });
         });
