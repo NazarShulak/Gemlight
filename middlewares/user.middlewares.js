@@ -9,13 +9,15 @@ module.exports = {
         try {
             const { email } = req.body;
 
+            if (!email){
+                throw new ErrorHandler(BAD_REQUEST, 'Email must be provided', 4003);
+            }
+
             const user = await UserModel.findOne({ where: { email } });
 
             if (user) {
                 throw new ErrorHandler(CONFLICT, 'User is already registered', 4090);
             }
-
-            console.log('************')
 
             next();
         } catch (e) {
