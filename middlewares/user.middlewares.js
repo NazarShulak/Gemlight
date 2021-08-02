@@ -15,6 +15,8 @@ module.exports = {
                 throw new ErrorHandler(CONFLICT, 'User is already registered', 4090);
             }
 
+            console.log('************')
+
             next();
         } catch (e) {
             next(e);
@@ -25,8 +27,6 @@ module.exports = {
         try {
             const { error } = createUser.validate(req.body);
 
-            console.log(error)
-            console.log('************')
             if (error) {
                 throw new ErrorHandler(BAD_REQUEST, 'Bad input data!', 4000);
             }
