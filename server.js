@@ -11,7 +11,7 @@ const { cronRun } = require("./cron-jobs");
             console.log(`App listen ${PORT}`);
         });
 
-        cronRun();
+        await cronRun();
     } catch (e) {
         console.log(e)
     }
