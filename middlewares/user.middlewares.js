@@ -25,9 +25,9 @@ module.exports = {
         try {
             const { error } = createUser.validate(req.body);
 
+            console.log(error)
+            console.log('************')
             if (error) {
-                console.log(error)
-                console.log('************')
                 throw new ErrorHandler(BAD_REQUEST, 'Bad input data!', 4000);
             }
 
