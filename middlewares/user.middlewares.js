@@ -2,6 +2,7 @@ const { responseCodesEnum: { CONFLICT, BAD_REQUEST } } = require('../constants')
 const { UserModel } = require('../database');
 const { ErrorHandler } = require('../error');
 const { userValidators: { createUser } } = require('../validators');
+const { log } = require("nodemon/lib/utils");
 
 module.exports = {
     checkIfUserExist: async (req, res, next) => {
@@ -25,6 +26,8 @@ module.exports = {
             const { error } = createUser.validate(req.body);
 
             if (error) {
+                console.log(error)
+                console.log('************')
                 throw new ErrorHandler(BAD_REQUEST, 'Bad input data!', 4000);
             }
 
