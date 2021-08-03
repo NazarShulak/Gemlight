@@ -6,10 +6,10 @@ const app = require("../app");
 module.exports = {
     createFakeUser: async () => {
         return await request(app).post("/api/users").send({
-            name: 'test',
+            name: 'tst',
             age: 20,
-            email: 'test@test.co',
-            password: 'test12345'
+            email: 'tst@tst.co',
+            password: 'tst12345'
         });
     },
 

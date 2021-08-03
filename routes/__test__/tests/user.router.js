@@ -8,7 +8,12 @@ module.exports = () => {
 
         describe('given data is correct', () => {
             test('It should return user object with status of 201', async () => {
-                const response = createFakeUser();
+                const response = await request(app).post("/api/users").send({
+                    name: 'test',
+                    age: 20,
+                    email: 'test@test.co',
+                    password: 'test12345'
+                });
 
                 expect(response.statusCode).toBe(201);
                 expect(response.body).toEqual(
@@ -19,17 +24,18 @@ module.exports = () => {
                         email: 'test@test.co',
                         password: expect.any(String)
                     }));
-
-                describe('Check whether user is created in db', () => {
-                    test('it should return true if users are equal', async () => {
-                        const userFromDB = await getFakeUserFromDB();
-                        const isEqualUsers = _.isEqual(response, userFromDB);
-
-                        expect(isEqualUsers).toBe(true);
-                    })
-                })
-
             });
+
+            describe('Check whether user is created in db', () => {
+                test('it should return true if users are equal', async () => {
+                    const createdUser = await createFakeUser();
+                    const userFromDB = await getFakeUserFromDB();
+
+                    const isEqualUsers = _.isEqual(createdUser, userFromDB);
+
+                    expect(isEqualUsers).toBe(true);
+                })
+            })
 
             test('It should return second user object with status of 201', async () => {
                 const response = await request(app).post("/api/users").send({
