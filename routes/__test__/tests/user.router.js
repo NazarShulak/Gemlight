@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../../app");
 const { testHelpers: { createFakeUser, getFakeUserFromDB } } = require('../../../helpers');
-
+require('lodash');
 
 module.exports = () => {
     describe("POST /api/users ", () => {
