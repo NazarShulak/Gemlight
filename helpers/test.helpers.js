@@ -10,10 +10,16 @@ module.exports = {
             password: 'tst12345'
         });
 
+        console.log(createdUser)
         return { user_id: 2, ...createdUser };
     },
 
     getFakeUserFromDB: async () => {
-        return await UserModel.findOne({ where: { email: 'tst@tst.co' } });
+        const userFromDB=await UserModel.findOne({ where: { email: 'tst@tst.co' } });
+        console.log(userFromDB);
+
+        return userFromDB;
     }
+
+
 };
