@@ -14,6 +14,6 @@ module.exports = {
     },
 
     getFakeUserFromDB: async () => {
-        return await UserModel.raw('SELECT * FROM userInfo WHERE email=aaaaa@aaaaa.co');
+        return await UserModel.findOne({ where: { email: 'tst@tst.co' } });
     }
 };
