@@ -1,19 +1,19 @@
 const { UserModel } = require('../database');
-const request = require("supertest");
-const app = require("../app");
 
 
 module.exports = {
     createFakeUser: async () => {
-        return await request(app).post("/api/users").send({
+        const createdUser = await UserModel.create({
             name: 'tst',
             age: 20,
             email: 'tst@tst.co',
             password: 'tst12345'
         });
+
+        return { user_id: 2, ...createdUser };
     },
 
     getFakeUserFromDB: async () => {
-        return await UserModel.findOne({ where: { email: 'tst@tst.co' } });
+        return await UserModel.raw('SELECT * FROM userInfo WHERE email=aaaaa@aaaaa.co');
     }
 };

@@ -1,7 +1,8 @@
-const request = require("supertest");
 const app = require("../../../app");
-const { testHelpers: { createFakeUser, getFakeUserFromDB } } = require('../../../helpers');
+const request = require("supertest");
 const { _ } = require('lodash');
+
+const { testHelpers: { createFakeUser, getFakeUserFromDB } } = require('../../../helpers');
 
 module.exports = () => {
     describe("POST /api/users ", () => {
