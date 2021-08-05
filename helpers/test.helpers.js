@@ -25,12 +25,15 @@ module.exports = {
         const accessTokenCheck = accessToken === authUserData.accessToken;
         const refreshTokenCheck = refreshToken === authUserData.refreshToken;
 
-
-        console.log(await verifyToken('jnwbvobwuvbhv'))
         if (accessTokenCheck && refreshTokenCheck) {
-            // return await verifyToken(accessToken) &&
-            //     await verifyToken(refreshToken, 'REFRESH');
-            return true
+            try {
+                await verifyToken(accessToken);
+                await verifyToken(refreshToken, 'REFRESH');
+            } catch (e) {
+                if (!e) {
+                    return true;
+                }
+            }
         }
 
         return false;
