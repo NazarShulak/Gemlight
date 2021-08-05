@@ -29,5 +29,7 @@ module.exports = {
             return await verifyToken(authUserData.accessToken) &&
                 await verifyToken(authUserData.refreshToken, 'REFRESH');
         }
+
+        return false;
     }
 };
