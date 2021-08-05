@@ -27,17 +27,6 @@ module.exports = () => {
                     }));
             });
 
-            describe('Check whether user is created in db', () => {
-                test('it should return true if users are equal', async () => {
-                    const createdUser = await createFakeUser();
-                    const userFromDB = await getFakeUserFromDB();
-
-                    const isEqualUsers = _.isEqual(createdUser, userFromDB);
-
-                    expect(isEqualUsers).toBe(true);
-                })
-            })
-
             test('It should return second user object with status of 201', async () => {
                 const response = await request(app).post("/api/users").send({
                     name: 'test2',
