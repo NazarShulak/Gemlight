@@ -30,11 +30,11 @@ module.exports = {
                 await verifyToken(accessToken);
                 await verifyToken(refreshToken, 'REFRESH');
             } catch (e) {
-                console.log(e);
-                if (!e) {
-                    return true;
+                if (e) {
+                    return false;
                 }
             }
+            return true;
         }
 
         return false;
