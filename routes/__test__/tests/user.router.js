@@ -1,6 +1,6 @@
 const app = require("../../../app");
 const request = require("supertest");
-const { testHelpers: { passwordCheck } } = require('../../../helpers');
+const { testHelpers: { passwordCheck, dbValueCheck } } = require('../../../helpers');
 
 module.exports = () => {
     describe("POST /api/users ", () => {
@@ -24,11 +24,8 @@ module.exports = () => {
                         password: expect.any(String)
                     }));
 
-                console.log(response.body)
-                console.log(response.body.password)
-                console.log(await passwordCheck(response.body.password, 'test12345'))
 
-                expect(await passwordCheck('test12345',response.body.password)).toBe(true);
+                expect(await passwordCheck('test12345', response.body.password)).toBe(true);
 
             });
 
@@ -49,6 +46,8 @@ module.exports = () => {
                         email: 'test2@test.co',
                         password: expect.any(String)
                     }));
+
+                expect(await passwordCheck('test12345', response.body.password)).toBe(true);
             });
 
             describe('When given data is duplicate', () => {
@@ -96,6 +95,7 @@ module.exports = () => {
 
             expect(response.statusCode).toBe(200);
         });
+        dbValueCheck();
     });
 
 
