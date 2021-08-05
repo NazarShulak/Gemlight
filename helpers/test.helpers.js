@@ -1,9 +1,9 @@
 const { UserModel } = require('../database');
-const { passwordService } = require('../services');
+const bcrypt = require("bcrypt");
+
 
 module.exports = {
-    passwordCheck: async (hashedPassword, password) => {
-        return await passwordService.compare(password, hashedPassword);
+    passwordCheck: async (password, hashedPassword) => {
+        return await bcrypt.compare(password, hashedPassword);
     }
-
 };

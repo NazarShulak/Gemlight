@@ -28,7 +28,7 @@ module.exports = () => {
                 console.log(response.body.password)
                 console.log(await passwordCheck(response.body.password, 'test12345'))
 
-                expect(await passwordCheck(response.body.password, 'test12345')).toBe(true);
+                expect(await passwordCheck('test12345',response.body.password)).toBe(true);
 
             });
 
