@@ -7,11 +7,13 @@ module.exports = {
         return await bcrypt.compare(password, hashedPassword);
     },
 
-    dbValueCheck: async () => {
+    dbValueCheck: async (name, age, email) => {
         const userFromDb = await UserModel.findOne({ where: { email: 'test@test.co' } });
 
-        console.log(userFromDb);
-        console.log('****************');
-        console.log(userFromDb.email);
+        const nameCheck = name === userFromDb.name;
+        const ageCheck = age === userFromDb.age;
+        const emailCheck = email === userFromDb.email;
+
+        return nameCheck && ageCheck && emailCheck;
     }
 };
