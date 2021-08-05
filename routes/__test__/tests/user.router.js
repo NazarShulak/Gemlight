@@ -1,8 +1,6 @@
 const app = require("../../../app");
 const request = require("supertest");
-const { _ } = require('lodash');
-
-const { testHelpers: { createFakeUser, getFakeUserFromDB } } = require('../../../helpers');
+const { testHelpers: { passwordCheck } } = require('../../../helpers');
 
 module.exports = () => {
     describe("POST /api/users ", () => {
@@ -25,6 +23,13 @@ module.exports = () => {
                         email: 'test@test.co',
                         password: expect.any(String)
                     }));
+
+                console.log(response.body)
+                console.log(response.body.password)
+                console.log(await passwordCheck(response.body.password, 'test12345'))
+
+                expect(await passwordCheck(response.body.password, 'test12345')).toBe(true);
+
             });
 
             test('It should return second user object with status of 201', async () => {
@@ -92,6 +97,7 @@ module.exports = () => {
             expect(response.statusCode).toBe(200);
         });
     });
+
 
     // describe("DELETE /api/users/:user_id ", () => {
     //     test("It should respond with status code of 204", async () => {
