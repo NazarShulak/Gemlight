@@ -11,7 +11,7 @@ module.exports = {
         const userFromDb = await UserModel.findOne({ where: { email: 'test@test.co' } });
 
         console.log(userFromDb);
-        console.log('****************8');
+        console.log('****************');
         console.log(userFromDb.email);
     }
 };

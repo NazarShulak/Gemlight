@@ -13,6 +13,7 @@ module.exports = () => {
                     email: 'test@test.co',
                     password: 'test12345'
                 });
+                await dbValueCheck();
 
                 expect(response.statusCode).toBe(201);
                 expect(response.body).toEqual(
@@ -95,7 +96,6 @@ module.exports = () => {
 
             expect(response.statusCode).toBe(200);
         });
-        dbValueCheck();
     });
 
 
