@@ -1,5 +1,6 @@
 const request = require("supertest");
 const app = require("../../../app");
+const { testHelpers: { dbTokensCheck } } = require('../../../helpers');
 
 module.exports = () => {
     describe("POST /auth/local ", () => {
@@ -12,13 +13,15 @@ module.exports = () => {
             expect(response.statusCode).toBe(200);
             expect(response.body).toEqual(
                 expect.objectContaining({
-                    id:expect.any(Number),
-                    userId:expect.any(Number),
-                    accessToken:expect.any(String),
-                    refreshToken:expect.any(String),
-                    expireAt:expect.any(Number)
+                    id: expect.any(Number),
+                    userId: expect.any(Number),
+                    accessToken: expect.any(String),
+                    refreshToken: expect.any(String),
+                    expireAt: expect.any(Number)
                 })
             )
+
+            expect(await dbTokensCheck(response.body.accessToken, response.body.refreshToken)).toBe(true);
         });
     });
 };

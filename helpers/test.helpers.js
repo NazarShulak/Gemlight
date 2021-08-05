@@ -1,5 +1,6 @@
-const { UserModel } = require('../database');
 const bcrypt = require("bcrypt");
+const { authService: { verifyToken } } = require('../services');
+const { UserModel, AuthModel } = require('../database');
 
 
 module.exports = {
@@ -15,5 +16,18 @@ module.exports = {
         const emailCheck = email === userFromDb.email;
 
         return nameCheck && ageCheck && emailCheck;
+    },
+
+    dbTokensCheck: async (accessToken, refreshToken) => {
+        const userFromDb = await UserModel.findOne({ where: { email: 'test@test.co' } });
+        const authUserData = await AuthModel.findOne({ where: { userId: userFromDb.user_id } });
+
+        const accessTokenCheck = accessToken === authUserData.accessToken;
+        const refreshTokenCheck = refreshToken === authUserData.refreshToken;
+
+        if (accessTokenCheck && refreshTokenCheck) {
+            return await verifyToken(authUserData.accessToken) &&
+                await verifyToken(authUserData.refreshToken, 'REFRESH');
+        }
     }
 };
