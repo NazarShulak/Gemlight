@@ -12,5 +12,7 @@ module.exports = {
     REFRESH_TOKEN_LIFETIME: '30d',
     ACCESS: 'access',
     REFRESH: 'refresh',
-    AUTHORIZATION: 'Authorization'
+    AUTHORIZATION: 'Authorization',
+    CLIENT_ID: process.env.CLIENT_ID,
+    CLIENT_SECRET: process.env.CLIENT_SECRET
 }
