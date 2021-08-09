@@ -4,7 +4,7 @@ const { testHelpers: { dbTokensCheck } } = require('../../../helpers');
 
 module.exports = () => {
     describe("POST /auth/local ", () => {
-        test("It should respond with an object of user and status code 200", async () => {
+        test("It should respond with an object of user and status code of 200", async () => {
             const response = await request(app).post("/auth/local").send({
                 email: 'test@test.co',
                 password: 'test12345'
@@ -20,7 +20,6 @@ module.exports = () => {
                     expireAt: expect.any(Number)
                 })
             )
-
             expect(await dbTokensCheck(response.body.accessToken, response.body.refreshToken)).toBe(true);
         });
     });

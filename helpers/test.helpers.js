@@ -1,7 +1,9 @@
 const bcrypt = require("bcrypt");
-const { authService: { verifyToken } } = require('../services');
 const { UserModel, AuthModel } = require('../database');
+const { constants: { REFRESH } } = require('../constants');
+const { authService: { verifyToken } } = require('../services');
 
+const fakeUserEmail = 'test@test.co';
 
 module.exports = {
     passwordCheck: async (password, hashedPassword) => {
@@ -9,7 +11,8 @@ module.exports = {
     },
 
     dbValueCheck: async (name, age, email) => {
-        const userFromDb = await UserModel.findOne({ where: { email: 'test@test.co' } });
+
+        const userFromDb = await UserModel.findOne({ where: { email: fakeUserEmail } });
 
         const nameCheck = name === userFromDb.name;
         const ageCheck = age === userFromDb.age;
@@ -19,7 +22,7 @@ module.exports = {
     },
 
     dbTokensCheck: async (accessToken, refreshToken) => {
-        const userFromDb = await UserModel.findOne({ where: { email: 'test@test.co' } });
+        const userFromDb = await UserModel.findOne({ where: { email: fakeUserEmail } });
         const authUserData = await AuthModel.findOne({ where: { userId: userFromDb.user_id } });
 
         const accessTokenCheck = accessToken === authUserData.accessToken;
@@ -28,7 +31,7 @@ module.exports = {
         if (accessTokenCheck && refreshTokenCheck) {
             try {
                 await verifyToken(accessToken);
-                await verifyToken(refreshToken, 'REFRESH');
+                await verifyToken(refreshToken, REFRESH);
             } catch (e) {
                 if (e) {
                     return false;
