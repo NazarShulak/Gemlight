@@ -12,10 +12,6 @@ const UserModel = sequelize.define('User', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    age: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
     email: {
         type: Sequelize.STRING,
         allowNull: false

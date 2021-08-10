@@ -2,6 +2,7 @@ const router = require('express').Router();
 const passport = require('passport');
 require('../passports/passport');
 
+const { AuthModel } = require('../database');
 
 const { authController: { loginUser } } = require('../controllers');
 const {
@@ -15,20 +16,19 @@ const {
 
 router.post('/local', userBodyCheck, checkUserLogin, checkUserPasswordValidity, loginUser);
 
-router.get('/', (req, res) => res.send('Example Home page!'))
 router.get('/failed', (req, res) => res.send('You Failed to log in!'))
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
-    function (req, res) {
-        // Successful authentication, redirect home.
-        res.json('Success');
+    (req, res) => {
+        res.json(req.user);
     }
 );
 
 router.get('/logout', (req, res) => {
     req.session = null;
     req.logout();
-    res.redirect('/api/auth/local');
+    res.redirect('/auth/google');
 })
 
 module.exports = router;

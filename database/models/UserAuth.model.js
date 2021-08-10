@@ -16,7 +16,7 @@ const UserAuth = sequelize.define('Auth', {
     },
     expireAt: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false
     }
 }, {
     tableName: 'userAuth',

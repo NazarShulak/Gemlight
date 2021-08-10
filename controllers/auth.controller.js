@@ -2,16 +2,17 @@ const { constants: { AUTHORIZATION } } = require('../constants');
 const { AuthModel } = require('../database');
 const { asyncRedis } = require('../database/connection');
 const { ErrorHandler } = require("../error");
+const passport = require('passport');
 const { authService } = require('../services');
-const { promisify } = require('util');
 
+require('../passports/passport');
 
 module.exports = {
     loginUser: async (req, res, next) => {
         try {
             const date = new Date();
             const { user_id } = req.user;
-            const  tokenPair = authService.generateTokens();
+            const tokenPair = authService.generateTokens();
 
             // await asyncRedis.set(user_id + '', JSON.stringify(...tokenPair) + '', 'EX', 60);
             const user = await AuthModel.create({
@@ -22,6 +23,14 @@ module.exports = {
 
             res.json(user);
             // res.json({ ...JSON.parse(user), user: req.user });
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    loginViaGoogle: async (req, res, next) => {
+        try {
+
         } catch (e) {
             next(e);
         }
