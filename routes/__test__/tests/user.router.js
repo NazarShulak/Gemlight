@@ -8,24 +8,22 @@ module.exports = () => {
         describe('given data is correct', () => {
             test('It should return user object with status of 201', async () => {
                 const name = 'test';
-                const age = 20;
                 const email = 'test@test.co';
                 const password = 'test12345';
 
-                const response = await request(app).post("/api/users").send({ name, age, email, password });
+                const response = await request(app).post("/api/users").send({ name, email, password });
 
                 expect(response.statusCode).toBe(201);
                 expect(response.body).toEqual(
                     expect.objectContaining({
                         user_id: expect.any(Number),
                         name,
-                        age,
                         email,
                         password: expect.any(String)
                     }));
 
 
-                expect(await dbValueCheck(name, age, email)).toBe(true);
+                expect(await dbValueCheck(name, email)).toBe(true);
                 expect(await passwordCheck(password, response.body.password)).toBe(true);
 
             });
@@ -33,7 +31,6 @@ module.exports = () => {
             test('It should return second user object with status of 201', async () => {
                 const response = await request(app).post("/api/users").send({
                     name: 'test2',
-                    age: 20,
                     email: 'test2@test.co',
                     password: 'test12345'
                 });
@@ -43,7 +40,6 @@ module.exports = () => {
                     expect.objectContaining({
                         user_id: expect.any(Number),
                         name: 'test2',
-                        age: 20,
                         email: 'test2@test.co',
                         password: expect.any(String)
                     }));
@@ -55,7 +51,6 @@ module.exports = () => {
                 test('Should respond with status code of 409', async () => {
                     const response = await request(app).post("/api/users").send({
                         name: 'test',
-                        age: 20,
                         email: 'test@test.co',
                         password: 'test12345'
                     });
@@ -68,7 +63,6 @@ module.exports = () => {
                 test('Should respond with status code of 400', async () => {
                     const response = await request(app).post("/api/users").send({
                         name: 'test',
-                        age: 20,
                     });
 
                     expect(expect(response.statusCode).toBe(400));
@@ -87,7 +81,6 @@ module.exports = () => {
                     expect.objectContaining({
                         user_id: expect.any(Number),
                         name: expect.any(String),
-                        age: expect.any(Number),
                         email: expect.any(String),
                         password: expect.any(String)
                     })
