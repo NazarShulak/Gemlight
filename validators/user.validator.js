@@ -8,10 +8,6 @@ module.exports = {
             .required()
             .min(3)
             .max(35),
-        age: Joi.number()
-            .required()
-            .min(16)
-            .max(100),
         email: Joi.string()
             .required()
             .regex(EMAIL_REGEXP),
