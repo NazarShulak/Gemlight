@@ -40,7 +40,7 @@ module.exports = {
         try {
             const { user_id } = req.user;
 
-            await asyncRedis.del(user_id);
+            // await asyncRedis.del(user_id);
 
             res.json('USER_LOGOUT');
             next();

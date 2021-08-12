@@ -14,6 +14,10 @@ const UserAuth = sequelize.define('Auth', {
         type: Sequelize.INTEGER,
         allowNullL: false
     },
+    googleId: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
     expireAt: {
         type: Sequelize.STRING,
         allowNull: false
