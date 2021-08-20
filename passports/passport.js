@@ -13,7 +13,7 @@ passport.use(new GoogleStrategy({
         clientSecret: CLIENT_SECRET,
         callbackURL: 'http://localhost:8000/auth/google/callback'
     },
-    async (accessToken, refreshToken='', profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
         const userExist = await UserModel.findOne({ where: { email: profile._json.email } });
 
         if (userExist) {

@@ -17,7 +17,11 @@ const {
 router.post('/local', userBodyCheck, checkUserLogin, checkUserPasswordValidity, loginUser);
 
 router.get('/failed', (req, res) => res.send('You Failed to log in!'))
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passport.authenticate('google', {
+    scope: ['profile', 'email'],
+    accessType: 'offline',
+    approvalPrompt: 'force'
+}));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
     (req, res) => {

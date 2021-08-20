@@ -3,7 +3,7 @@ const productTest = require('./tests/product.router');
 const userTest = require('./tests/user.router');
 
 describe('sequentially run tests', () => {
-    userTest();
+    // userTest();
     authTest();
-    productTest();
+    // productTest();
 });
