@@ -4,7 +4,7 @@ require('../passports/passport');
 
 const { AuthModel } = require('../database');
 
-const { authController: { loginUser } } = require('../controllers');
+const { authController: { loginUser, verifyUserEmail } } = require('../controllers');
 const {
     authMiddlewares: {
         userBodyCheck,
@@ -15,6 +15,7 @@ const {
 
 
 router.post('/local', userBodyCheck, checkUserLogin, checkUserPasswordValidity, loginUser);
+router.get('/confirm/:code', verifyUserEmail);
 
 router.get('/failed', (req, res) => res.send('You Failed to log in!'))
 router.get('/google', passport.authenticate('google', {

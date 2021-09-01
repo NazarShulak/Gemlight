@@ -10,14 +10,14 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendMail = async (userMail, context = {}) => {
+const sendMail = async (userMail, confirmationCode) => {
     await transporter.sendMail({
         from: FROM,
         to: userMail,
         subject: 'Authentication',
         html: `<h3>Verificate</h3>
                <p>Please confirm your email by clicking on the following link</p>
-               <a href=http://localhost:8000/confirm/${confirmationCode}> Click here</a>`
+               <a href=http://localhost:8000/auth/confirm/${confirmationCode}> Click here</a>`
     })
 }
 

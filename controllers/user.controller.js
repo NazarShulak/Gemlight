@@ -17,11 +17,13 @@ module.exports = {
 
     createUsers: async (req, res, next) => {
         try {
-            const { password, confirmationCode, ...other } = req.body;
+            const { password, ...other } = req.body;
             const hashedPassword = await passwordService.hash(password);
 
             const token = jwt.sign({ email: req.body.email }, SECRET);
             const createdUser = await UserModel.create({ password: hashedPassword, confirmationCode: token, ...other });
+
+            await mailService.sendMail(createdUser.email, createdUser.confirmationCode);
 
             res.status(CREATED).json(createdUser);
         } catch (e) {

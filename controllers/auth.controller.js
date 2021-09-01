@@ -1,5 +1,5 @@
 const { constants: { AUTHORIZATION } } = require('../constants');
-const { AuthModel } = require('../database');
+const { AuthModel, UserModel } = require('../database');
 const { asyncRedis } = require('../database/connection');
 const { ErrorHandler } = require("../error");
 const passport = require('passport');
@@ -31,8 +31,7 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    }
-    ,
+    },
 
     logout: async (req, res, next) => {
         try {
@@ -56,6 +55,23 @@ module.exports = {
             await AuthModel.update({ ...tokenPair }, { where: { refreshToken } });
 
             res.json({ ...tokenPair, user });
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    verifyUserEmail: async (req, res, next) => {
+        try {
+            const { code } = req.params
+            const user = await UserModel.findOne({ where: { confirmationCode: code } });
+
+            if (!user) {
+                res.json('error')
+            }
+
+            await UserModel.update({ status: 'Active' }, { where: { confirmationCode: code } });
+
+            res.json('success')
         } catch (e) {
             next(e);
         }
