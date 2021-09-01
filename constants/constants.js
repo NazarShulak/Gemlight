@@ -14,5 +14,10 @@ module.exports = {
     REFRESH: 'refresh',
     AUTHORIZATION: 'Authorization',
     CLIENT_ID: process.env.CLIENT_ID,
-    CLIENT_SECRET: process.env.CLIENT_SECRET
+    CLIENT_SECRET: process.env.CLIENT_SECRET,
+    SYSTEM_EMAIL: process.env.SYSTEM_EMAIL || 'example@gmail.com',
+    SYSTEM_EMAIL_PASSWORD: process.env.SYSTEM_EMAIL_PASSWORD || 'password',
+    GMAIL_SERVICE: 'gmail',
+    FROM: 'No reply',
+    SECRET:process.env.SECRET
 }

@@ -19,6 +19,15 @@ const UserModel = sequelize.define('User', {
     password: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    status: {
+        type: Sequelize.STRING,
+        enum: ['Pending', 'Active'],
+        default: 'Pending'
+    },
+    confirmationCode: {
+        type: Sequelize.STRING,
+        uniq:true
     }
 }, {
     tableName: 'userInfo',

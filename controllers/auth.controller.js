@@ -12,6 +12,11 @@ module.exports = {
         try {
             const date = new Date();
             const { user_id } = req.user;
+
+            if (req.user.status !== "Active") {
+                res.status(401).json('Please Verify Your Email!');
+            }
+
             const tokenPair = authService.generateTokens();
 
             // await asyncRedis.set(user_id + '', JSON.stringify(...tokenPair) + '', 'EX', 60);
@@ -26,15 +31,8 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    },
-
-    loginViaGoogle: async (req, res, next) => {
-        try {
-
-        } catch (e) {
-            next(e);
-        }
-    },
+    }
+    ,
 
     logout: async (req, res, next) => {
         try {

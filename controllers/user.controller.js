@@ -1,7 +1,8 @@
 const { UserModel } = require('../database');
 const { passwordService } = require('../services');
-const { responseCodesEnum: { CREATED, NO_CONTENT } } = require('../constants');
-
+const { constants: { SECRET }, responseCodesEnum: { CREATED, NO_CONTENT } } = require('../constants');
+const { mailService } = require('../services');
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     getUsers: async (req, res, next) => {
@@ -16,10 +17,11 @@ module.exports = {
 
     createUsers: async (req, res, next) => {
         try {
-            const { password, ...other } = req.body;
+            const { password, confirmationCode, ...other } = req.body;
             const hashedPassword = await passwordService.hash(password);
 
-            const createdUser = await UserModel.create({ password: hashedPassword, ...other });
+            const token = jwt.sign({ email: req.body.email }, SECRET);
+            const createdUser = await UserModel.create({ password: hashedPassword, confirmationCode: token, ...other });
 
             res.status(CREATED).json(createdUser);
         } catch (e) {

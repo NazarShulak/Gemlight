@@ -5,7 +5,7 @@ const { cronRun } = require("./cron-jobs");
 
 (async () => {
     try {
-        await sequelize.sync({force:true});
+        await sequelize.sync();
 
         app.listen(PORT, () => {
             console.log(`App listen ${PORT}`);

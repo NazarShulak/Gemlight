@@ -53,6 +53,15 @@ module.exports = () => {
             const response = await requestApp.get('/auth/google');
 
             expect(response).toHaveProperty('id');
+            expect(response).toHaveProperty('userId');
+            expect(response).toHaveProperty('googleId');
+            expect(response).toHaveProperty('accessToken');
+            expect(response).toHaveProperty('refreshToken');
+            expect(response.id).toBe(1);
+            expect(response.userId).toBe(1);
+            expect(response.googleId).toBe(2456567345666);
+            expect(response.accessToken).toBe('testAccessToken');
+            expect(response.refreshToken).toBe('testRefreshToken');
         })
     })
 };
