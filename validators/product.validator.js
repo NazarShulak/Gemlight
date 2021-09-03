@@ -5,7 +5,7 @@ module.exports = {
         productId: Joi.number().required(),
         userId: Joi.number().required(),
         title: Joi.string().required(),
-        description: Joi.string(),
+        description: Joi.object(),
         price: Joi.number().required(),
         quantity: Joi.number().required()
     }),

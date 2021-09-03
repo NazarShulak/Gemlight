@@ -7,13 +7,16 @@ module.exports = {
     getProductById: async (req, res, next) => {
         try {
             const { id } = req.params;
-            const product = await ProductModel.findOne({ where: { productId: id } });
+            let product = await ProductModel.findOne({ where: { productId: id } });
 
             if (!product) {
                 throw new Error('No such product');
             }
 
-            res.json(finalFieldsOrder(product, req.body));
+            product = finalFieldsOrder(product, req.body.fieldsOrder);
+            product = { ...product, description: JSON.parse(product.description) };
+
+            res.json(product);
         } catch (e) {
             next(e);
         }
@@ -21,9 +24,12 @@ module.exports = {
 
     getAllProducts: async (req, res, next) => {
         try {
-            const { ...searchParams } = req.body;
+            const searchParams = req.body.searchParams;
 
-            const products = await ProductModel.findAll({ where: { ...searchParams } });
+            let products = await ProductModel.findAll({ where: { ...searchParams } });
+
+            products = products.map(product => finalFieldsOrder(product, req.body.fieldsOrder));
+            products = products.map(product => product = { ...product, description: JSON.parse(product.description) });
 
             res.json(products);
         } catch (e) {
@@ -60,8 +66,8 @@ module.exports = {
 
     addNewProduct: async (req, res, next) => {
         try {
-            const { ...product } = req.body;
-            const createdProduct = await ProductModel.create({ ...product });
+            const { description, ...product } = req.body;
+            const createdProduct = await ProductModel.create({ ...product, description: JSON.stringify(description) });
 
             res.status(CREATED).json(createdProduct);
         } catch (e) {
