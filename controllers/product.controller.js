@@ -1,6 +1,7 @@
 const { ProductModel, ReviewModel } = require('../database');
 const { responseCodesEnum: { CREATED, UPDATED, NO_CONTENT } } = require('../constants');
 
+const { productService: { finalFieldsOrder } } = require('../services');
 
 module.exports = {
     getProductById: async (req, res, next) => {
@@ -12,7 +13,7 @@ module.exports = {
                 throw new Error('No such product');
             }
 
-            res.json(product);
+            res.json(finalFieldsOrder(product, req.body));
         } catch (e) {
             next(e);
         }

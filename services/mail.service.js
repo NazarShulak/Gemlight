@@ -15,7 +15,7 @@ const sendMail = async (userMail, confirmationCode) => {
         from: FROM,
         to: userMail,
         subject: 'Authentication',
-        html: `<h3>Verificate</h3>
+        html: `<h3>Verification</h3>
                <p>Please confirm your email by clicking on the following link</p>
                <a href=http://localhost:8000/auth/confirm/${confirmationCode}> Click here</a>`
     })

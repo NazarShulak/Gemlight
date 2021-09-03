@@ -71,7 +71,8 @@ module.exports = {
 
             await UserModel.update({ status: 'Active' }, { where: { confirmationCode: code } });
 
-            res.json('success')
+            res.json('success');
+            // res.redirect('/api');
         } catch (e) {
             next(e);
         }
