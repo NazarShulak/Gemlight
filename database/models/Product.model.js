@@ -1,7 +1,12 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../connection');
 
-const ProductAttributesModel = sequelize.define('ProductAttributes', {
+const ProductModel = sequelize.define('Products', {
+    id:{
+        type:Sequelize.INTEGER,
+        autoIncrement:true,
+        primaryKey:true
+    },
     userId: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -15,22 +20,21 @@ const ProductAttributesModel = sequelize.define('ProductAttributes', {
         allowNull: false
     },
 }, {
-    tableName: 'productAttributes',
+    tableName: 'products',
     timestamps: false,
     classMethods: {
         associate: function (models) {
-            ProductAttributesModel.belongsTo(models.UserModel, { foreignKey: 'userId' })
+            ProductModel.belongsTo(models.UserModel, { foreignKey: 'userId' });
 
-            ProductAttributesModel.belongsToMany(models.ProductAttributeValuesModel, {
-                as:'ProductAttributeValues',
-                through: {
-                    model: models.ProductAttributeModel,
-                    unique: false
-                }
-            })
+            ProductModel.belongsToMany(models.ProductAttributeValuesModel, {
+                through: models.ProductAttributeModel,
+                foreignKey: 'productId',
+                otherKey:'attributeId',
+                as:'productAttributeValues'
+            });
         }
     }
 });
 
 
-module.exports = ProductAttributesModel;
+module.exports = ProductModel;

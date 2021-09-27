@@ -19,7 +19,7 @@ const ReviewModel = sequelize.define('Review', {
     timestamps: false,
     classMethods: {
         associate: function (models) {
-            ReviewModel.belongsTo(models.ProductModel, { foreignKey: 'productId' })
+            ReviewModel.belongsTo(models.ProductAttributeModel, { foreignKey: 'productId' })
         }
     }
 });

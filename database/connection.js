@@ -7,7 +7,14 @@ const { constants: { DB_PASSWORD, DB_CONNECTION_STRING, DB_NAME, DB_USER } } = r
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     host: DB_CONNECTION_STRING,
-    dialect: 'mysql',
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+        ssl: {
+            require:true,
+            rejectUnauthorized: false
+        }
+    },
     logging: false
 });
 

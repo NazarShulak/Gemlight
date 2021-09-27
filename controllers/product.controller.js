@@ -1,22 +1,33 @@
-const { ProductModel, ReviewModel } = require('../database');
+const { QueryTypes } = require('sequelize');
+const {
+    ProductModel,
+    ReviewModel,
+    ProductAttributeModel,
+    ProductAttributeValuesModel,
+    UserModel
+} = require('../database');
 const { responseCodesEnum: { CREATED, UPDATED, NO_CONTENT } } = require('../constants');
 
 const { productService: { finalFieldsOrder } } = require('../services');
+const { sequelize } = require("../database/connection");
 
 module.exports = {
     getProductById: async (req, res, next) => {
         try {
             const { id } = req.params;
-            let product = await ProductModel.findOne({ where: { productId: id } });
+
+            const product = await ProductModel.findOne({ where: { productId: id } });
+            const productAttributeValues = await ProductAttributeValuesModel.findAll({ where: { attributeId: product.attributeId } })
 
             if (!product) {
                 throw new Error('No such product');
             }
 
-            product = finalFieldsOrder(product, req.body.fieldsOrder);
-            product = { ...product, description: JSON.parse(product.description) };
-
-            res.json(product);
+            const final = {
+                ...product.dataValues,
+                ...productAttributeValues[0].dataValues
+            }
+            res.json({ ...final });
         } catch (e) {
             next(e);
         }
@@ -24,12 +35,22 @@ module.exports = {
 
     getAllProducts: async (req, res, next) => {
         try {
-            const searchParams = req.body.searchParams;
 
-            let products = await ProductModel.findAll({ where: { ...searchParams } });
+            // let products = await ProductModel.findAll({}, {
+            //     include: [{
+            //         model: UserModel,
+            //         as: 'userProducts'
+            //     }]
+            // });
+            let products = await sequelize.query(
+                // 'SELECT pr.productId,pr.userId,pav.attributeId,pav.attributeValue FROM products as pr, productAttributeValues as pav ' +
+                // 'LEFT JOIN Product_Attributes ON pr.productId = Product_Attributes.productId LEFT JOIN pav ON Product_Attributes.attributeId = pav.attributeId ',
 
-            products = products.map(product => finalFieldsOrder(product, req.body.fieldsOrder));
-            products = products.map(product => product = { ...product, description: JSON.parse(product.description) });
+                'SELECT * FROM products,productAttributeValues;',
+                {
+                    type: QueryTypes.SELECT
+                }
+            )
 
             res.json(products);
         } catch (e) {
@@ -64,12 +85,40 @@ module.exports = {
         }
     },
 
-    addNewProduct: async (req, res, next) => {
+    addNewProductAttribute: async (req, res, next) => {
         try {
-            const { description, ...product } = req.body;
-            const createdProduct = await ProductModel.create({ ...product, description: JSON.stringify(description) });
+            const { attributeValue, attributeName, productId, attributeId, userId } = req.body;
 
-            res.status(CREATED).json(createdProduct);
+            await sequelize.query(
+                'INSERT INTO products (userId,productId,attributeId) VALUES (?,?,?)',
+                {
+                    replacements: [userId, productId, attributeId],
+                    type: QueryTypes.INSERT
+                }
+            );
+
+            await sequelize.query(
+                'INSERT INTO productAttributeValues (attributeId,attributeValue,attributeName) VALUES (?,?,?)',
+                {
+                    replacements: [attributeId, attributeValue, attributeName],
+                    type: QueryTypes.INSERT
+                }
+            );
+
+            // const createdProduct = await ProductModel.create({
+            //     ...other,
+            //     Products: [{ attributeName, attributeValue }]
+            // }, {
+            //     include: [
+            //         {
+            //             model: ProductAttributeValuesModel,
+            //             as: 'productAttributeValues'
+            //         }
+            //     ]
+            // });
+
+
+            res.status(CREATED).json("createdProduct");
         } catch (e) {
             next(e);
         }
@@ -80,7 +129,10 @@ module.exports = {
             const { id } = req.params;
             const { updatedProduct } = req.body;
 
-            await ProductModel.update({ ...updatedProduct, productId: id }, { where: { productId: id } });
+            await sequelize.query(
+                ''
+            );
+
 
             res.status(UPDATED).json('updated');
         } catch (e) {

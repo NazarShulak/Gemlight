@@ -35,7 +35,7 @@ const UserModel = sequelize.define('User', {
     classMethods: {
         associate: function (models) {
             UserModel.hasOne(models.AuthModel, { foreignKey: 'userId' });
-            UserModel.hasMany(models.ProductModel, { as: 'products' });
+            UserModel.hasMany(models.ProductAttributeModel, { as: 'userProducts' });
         }
     }
 });

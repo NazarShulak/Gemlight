@@ -5,7 +5,7 @@ const {
         getProductById,
         uniqueNameCheck,
         deleteAllProducts,
-        addNewProduct,
+        addNewProductAttribute,
         updateProduct,
         getAllProducts,
         createProductReview,
@@ -22,7 +22,7 @@ router.get('/:id', getProductById);
 router.get('/:id/review', productExistenceCheck, getAllProductReviews);
 router.post('/:id/review', productExistenceCheck, reviewBodyCheck, checkIfUserExistById, createProductReview);
 router.get('/check/:name', uniqueNameCheck);
-router.post('/', checkIfUserExistById, checkUniqueProductId, checkInputFields, addNewProduct);
+router.post('/',  checkUniqueProductId, addNewProductAttribute);
 router.put('/:id', checkIfUserExistById, productExistenceCheck, checkInputFields, updateProduct);
 router.delete('/', deleteAllProducts);
 
