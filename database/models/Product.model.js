@@ -1,41 +1,36 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../connection');
 
-const ProductModel = sequelize.define('Product', {
-    productId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
+const ProductAttributesModel = sequelize.define('ProductAttributes', {
     userId: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    title: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    description: {
-        type: Sequelize.STRING,
-        allowNull: true
-    },
-    price: {
-        type: Sequelize.FLOAT,
-        allowNull: false
-    },
-    quantity: {
+    productId: {
         type: Sequelize.INTEGER,
         allowNull: false
-    }
+    },
+    attributeId: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
 }, {
-    tableName: 'products',
+    tableName: 'productAttributes',
     timestamps: false,
     classMethods: {
         associate: function (models) {
-            ProductModel.belongsTo(models.UserModel, { foreignKey: 'userId' })
-            ProductModel.hasMany(models.ReviewModel, { as: 'reviews' })
+            ProductAttributesModel.belongsTo(models.UserModel, { foreignKey: 'userId' })
+
+            ProductAttributesModel.belongsToMany(models.ProductAttributeValuesModel, {
+                as:'ProductAttributeValues',
+                through: {
+                    model: models.ProductAttributeModel,
+                    unique: false
+                }
+            })
         }
     }
 });
 
 
-module.exports = ProductModel;
+module.exports = ProductAttributesModel;
