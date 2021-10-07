@@ -1,23 +1,21 @@
-const { QueryTypes } = require('sequelize');
+const {QueryTypes} = require('sequelize');
 const {
     ProductModel,
     ReviewModel,
-    ProductAttributeModel,
-    ProductAttributeValuesModel,
-    UserModel
+    ProductAttributeValuesModel
 } = require('../database');
-const { responseCodesEnum: { CREATED, UPDATED, NO_CONTENT } } = require('../constants');
+const {responseCodesEnum: {CREATED, UPDATED, NO_CONTENT}} = require('../constants');
 
-const { productService: { finalFieldsOrder } } = require('../services');
-const { sequelize } = require("../database/connection");
+const {productService: {finalFieldsOrder}} = require('../services');
+const {sequelize} = require("../database/connection");
 
 module.exports = {
     getProductById: async (req, res, next) => {
         try {
-            const { id } = req.params;
+            const {id} = req.params;
 
-            const product = await ProductModel.findOne({ where: { productId: id } });
-            const productAttributeValues = await ProductAttributeValuesModel.findAll({ where: { attributeId: product.attributeId } })
+            const product = await ProductModel.findOne({where: {productId: id}});
+            const productAttributeValues = await ProductAttributeValuesModel.findAll({where: {attributeId: product.attributeId}})
 
             if (!product) {
                 throw new Error('No such product');
@@ -27,7 +25,7 @@ module.exports = {
                 ...product.dataValues,
                 ...productAttributeValues[0].dataValues
             }
-            res.json({ ...final });
+            res.json({...final});
         } catch (e) {
             next(e);
         }
@@ -35,21 +33,14 @@ module.exports = {
 
     getAllProducts: async (req, res, next) => {
         try {
-
-            // let products = await ProductModel.findAll({}, {
-            //     include: [{
-            //         model: UserModel,
-            //         as: 'userProducts'
-            //     }]
-            // });
             let products = await sequelize.query(
-                // 'SELECT pr.productId,pr.userId,pav.attributeId,pav.attributeValue FROM products as pr, productAttributeValues as pav ' +
-                // 'LEFT JOIN Product_Attributes ON pr.productId = Product_Attributes.productId LEFT JOIN pav ON Product_Attributes.attributeId = pav.attributeId ',
-
-                'SELECT * FROM products,productAttributeValues;',
-                {
-                    type: QueryTypes.SELECT
-                }
+                `SELECT pr."productId", pr."userId",
+                (COALESCE((select json_agg(json_build_object(
+                'attributeId', pa."attributeId", 'attributeName', pav."attributeName", 'attributeValue', pav."attributeValue"))
+                from "ProductAttributes" as pa
+                LEFT JOIN "productAttributeValues" as pav ON pa."attributeId" = pav."attributeId"
+                where pa."productId" = pr."productId"), '[]')) as attributes
+                FROM products as pr`
             )
 
             res.json(products);
@@ -60,9 +51,9 @@ module.exports = {
 
     uniqueNameCheck: async (req, res, next) => {
         try {
-            const { name } = req.params;
+            const {name} = req.params;
 
-            const product = await ProductModel.findOne({ where: { title: name } });
+            const product = await ProductModel.findOne({where: {title: name}});
 
             if (product) {
                 res.json('not unique');
@@ -76,8 +67,8 @@ module.exports = {
 
     deleteAllProducts: async (req, res, next) => {
         try {
-            const { userId } = req.body;
-            await ProductModel.destroy({ where: { userId } });
+            const {userId} = req.body;
+            await ProductModel.destroy({where: {userId}});
 
             res.status(NO_CONTENT).json('Successfully deleted');
         } catch (e) {
@@ -86,48 +77,49 @@ module.exports = {
     },
 
     addNewProductAttribute: async (req, res, next) => {
+        let transaction;
+
         try {
-            const { attributeValue, attributeName, productId, attributeId, userId } = req.body;
+            const {attributeValue, attributeName, productId, attributeId, userId} = req.body;
 
+            transaction = await sequelize.transaction();
             await sequelize.query(
-                'INSERT INTO products (userId,productId,attributeId) VALUES (?,?,?)',
-                {
+                `INSERT INTO products ("userId","productId","attributeId") VALUES (?,?,?)`, {
                     replacements: [userId, productId, attributeId],
-                    type: QueryTypes.INSERT
+                    type: QueryTypes.INSERT,
+                    transaction
                 }
             );
 
             await sequelize.query(
-                'INSERT INTO productAttributeValues (attributeId,attributeValue,attributeName) VALUES (?,?,?)',
-                {
-                    replacements: [attributeId, attributeValue, attributeName],
-                    type: QueryTypes.INSERT
+                'INSERT INTO "productAttributeValues" ("attributeId", "attributeName", "attributeValue") VALUES (?,?,?)', {
+                    replacements: [attributeId, attributeName, attributeValue],
+                    type: QueryTypes.INSERT,
+                    transaction
                 }
             );
 
-            // const createdProduct = await ProductModel.create({
-            //     ...other,
-            //     Products: [{ attributeName, attributeValue }]
-            // }, {
-            //     include: [
-            //         {
-            //             model: ProductAttributeValuesModel,
-            //             as: 'productAttributeValues'
-            //         }
-            //     ]
-            // });
+            await sequelize.query(
+                'INSERT INTO "ProductAttributes"("productId", "attributeId") VALUES (?,?)', {
+                    replacements: [productId, attributeId],
+                    type: QueryTypes.INSERT,
+                    transaction
+                }
+            );
 
+            await transaction.commit();
 
             res.status(CREATED).json("createdProduct");
         } catch (e) {
+            if (transaction) await transaction.rollback();
             next(e);
         }
     },
 
     updateProduct: async (req, res, next) => {
         try {
-            const { id } = req.params;
-            const { updatedProduct } = req.body;
+            const {id} = req.params;
+            const {updatedProduct} = req.body;
 
             await sequelize.query(
                 ''
@@ -142,9 +134,9 @@ module.exports = {
 
     createProductReview: async (req, res, next) => {
         try {
-            const { ...review } = req.body;
+            const {...review} = req.body;
 
-            const reviewObject = await ReviewModel.create({ ...review, productId: req.params.id });
+            const reviewObject = await ReviewModel.create({...review, productId: req.params.id});
 
             res.status(CREATED).json(reviewObject);
         } catch (e) {
@@ -154,9 +146,9 @@ module.exports = {
 
     getAllProductReviews: async (req, res, next) => {
         try {
-            const { id } = req.params;
+            const {id} = req.params;
 
-            const reviews = await ReviewModel.findAll({ where: { productId: id } });
+            const reviews = await ReviewModel.findAll({where: {productId: id}});
 
             res.json(reviews);
         } catch (e) {

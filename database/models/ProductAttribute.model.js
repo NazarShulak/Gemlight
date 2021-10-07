@@ -1,7 +1,7 @@
 const { sequelize } = require('../connection');
 const { Sequelize } = require("sequelize");
 
-const ProductAttributeModel = sequelize.define('Product_Attribute', {
+const ProductAttributeModel = sequelize.define('ProductAttribute', {
     productId: {
         type: Sequelize.INTEGER,
     },
