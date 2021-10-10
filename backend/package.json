@@ -2,7 +2,7 @@
   "name": "users",
   "version": "1.0.0",
   "scripts": {
-    "test": "jest --forceExit"
+    "test": "../node_modules/.bin/jest --forceExit"
   },
   "dependencies": {
     "async-redis": "^2.0.0",
@@ -32,9 +32,9 @@
     "@types/sequelize": "^4.28.10",
     "@types/sinon": "^10.0.2",
     "jest": "^27.0.6",
-    "nodemon": "^2.0.12",
     "request": "^2.83.0",
     "sinon": "^11.1.2",
-    "supertest": "^6.1.4"
+    "supertest": "^6.1.4",
+    "nodemon": "^2.0.13"
   }
 }

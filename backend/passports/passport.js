@@ -9,8 +9,8 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
 passport.use(new GoogleStrategy({
-        clientID: CLIENT_ID,
-        clientSecret: CLIENT_SECRET,
+        clientID: CLIENT_ID+'',
+        clientSecret: CLIENT_SECRET+'',
         callbackURL: 'http://localhost:8000/auth/google/callback'
     },
     async (accessToken, refreshToken, profile, done) => {

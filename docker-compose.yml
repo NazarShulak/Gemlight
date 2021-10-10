@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    restart: on-failure
+    command: >
+      node app.js
+
+  db:
+    image: postgres
+    env_file:
+      - ./backend/.env
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./postgres:/var/lib/postgres
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+
+
+#  web:
+#    image: nginx:alpine
+#    ports:
+#      - "80:80"
+#    restart: on-failure
+#    volumes:
+#      - ./client:/usr/share/nginx/html
+#      - ./nginx.conf:/etc/nginx/conf.d/default.conf
