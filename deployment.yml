@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: gemlight-deployment
+  namespace: sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gemlight
+  template:
+    metadata:
+      labels:
+        app: gemlight
+    spec:
+      containers:
+        - name: webserver
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+
+        - name: database-server
+          image: postgres
+          ports:
+            - containerPort: 5433
