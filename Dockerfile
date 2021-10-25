@@ -7,3 +7,4 @@ COPY ./backend/package.json /app
 
 RUN npm install
 
+EXPOSE 8000

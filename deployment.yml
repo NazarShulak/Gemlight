@@ -3,7 +3,7 @@ kind: Deployment
 
 metadata:
   name: gemlight-deployment
-  namespace: sample
+  namespace: test
 spec:
   replicas: 1
   selector:
